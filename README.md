@@ -1,4 +1,4 @@
-# Quill ImageResizer Module
+# Quill ImageResizor Module
 
 A module for Quill rich text editor to allow images to be resized.
 
@@ -9,6 +9,7 @@ Fork and adaptions for quill 2 of [quill-image-resize-module](https://github.com
 - checkout / download
 - `npm i` && `npm run build`
 - open `demo.html`
+- [demo page](https://killercodemonkey.github.io/quill-image-resizor/demo.html)
 
 ## Usage
 
@@ -16,15 +17,15 @@ Fork and adaptions for quill 2 of [quill-image-resize-module](https://github.com
 
 ```javascript
 import Quill from 'quill'
-import { ImageResizer } from 'quill-image-resizer'
+import { ImageResizor } from 'quill-image-resizor'
 
-Quill.register('modules/imageResizerr', ImageResizer)
+Quill.register('modules/imageResizor', ImageResizor)
 
 const quill = new Quill(editor, {
   // ...
   modules: {
     // ...
-    imageResizer: {
+    imageResizor: {
       // See optional "config" below
     }
   }
@@ -36,7 +37,7 @@ const quill = new Quill(editor, {
 Copy image-resize.min.js into your web root or include from node_modules
 
 ```html
-<script src="/node_modules/quill-image-resize-module/image-resize.min.js"></script>
+<script src="/node_modules/quill-image-resizor/ImageResizor.js"></script>
 ```
 
 ```javascript
@@ -44,7 +45,7 @@ var quill = new Quill(editor, {
   // ...
   modules: {
     // ...
-    ImageResizer: {
+    ImageResizor: {
       // See optional "config" below
     }
   }
@@ -60,7 +61,7 @@ var quill = new Quill(editor, {
   // ...
   modules: {
     // ...
-    ImageResizer: {}
+    ImageResizor: {}
   }
 })
 ```
@@ -73,7 +74,7 @@ const quill = new Quill(editor, {
   // ...
   modules: {
     // ...
-    ImageResizer: {
+    ImageResizor: {
       modules: ['Resize', 'DisplaySize', 'Toolbar']
     }
   }
@@ -93,7 +94,7 @@ var quill = new Quill(editor, {
   // ...
   modules: {
     // ...
-    ImageResizer: {
+    ImageResizor: {
       // ...
       handleStyles: {
         backgroundColor: 'black',
@@ -117,7 +118,7 @@ var quill = new Quill(editor, {
   // ...
   modules: {
     // ...
-    ImageResizer: {
+    ImageResizor: {
       // ...
       displayStyles: {
         backgroundColor: 'black',
@@ -141,7 +142,7 @@ var quill = new Quill(editor, {
   // ...
   modules: {
     // ...
-    ImageResizer: {
+    ImageResizor: {
       // ...
       toolbarStyles: {
         backgroundColor: 'black',
@@ -178,7 +179,7 @@ var quill = new Quill(editor, {
   // ...
   modules: {
     // ...
-    ImageResizer: {
+    ImageResizor: {
       modules: [MyModule, Resize]
       // ...
     }

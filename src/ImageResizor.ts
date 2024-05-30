@@ -4,18 +4,9 @@ import { DisplaySize } from './modules/DisplaySize'
 import { Toolbar } from './modules/Toolbar'
 import { Resize } from './modules/Resize'
 import type Quill from 'quill'
+import type { ImageResizorOptions } from './DefaultOptions'
 
 const userSelects = Object.freeze(['userSelect', 'mozUserSelect', 'webkitUserSelect', 'msUserSelect'])
-
-export interface ImageResizorOptions {
-  modules?: string[]
-  overlayStyles?: Record<string, string | number>
-  handleStyles?: Record<string, string | number>
-  displayStyles?: Record<string, string | number>
-  toolbarStyles?: Record<string, string | number>
-  toolbarButtonStyles?: Record<string, string | number>
-  toolbarButtonSvgStyles?: Record<string, string | number>
-}
 
 const knownModules = { DisplaySize, Toolbar, Resize }
 

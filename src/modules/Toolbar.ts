@@ -1,20 +1,31 @@
-/* eslint-disable import/no-unresolved */
 import IconAlignLeft from 'quill/assets/icons/align-left.svg?raw'
 import IconAlignCenter from 'quill/assets/icons/align-center.svg?raw'
 import IconAlignRight from 'quill/assets/icons/align-right.svg?raw'
 import { BaseModule } from './BaseModule'
+import type ImageResizor from '../ImageResizor'
 
-const Parchment = window.Quill.imports.parchment
+const Parchment = window['Quill'].imports.parchment
 const FloatStyle = new Parchment.StyleAttributor('float', 'float')
 const MarginStyle = new Parchment.StyleAttributor('margin', 'margin')
 const DisplayStyle = new Parchment.StyleAttributor('display', 'display')
 
 export class Toolbar extends BaseModule {
+  toolbar?: HTMLDivElement
+  alignments: {
+    icon: string
+    apply: () => void
+    isApplied: () => boolean
+  }[] = []
+
+  constructor(resizer: ImageResizor) {
+    super(resizer)
+  }
+
   onCreate = () => {
     // Setup Toolbar
     this.toolbar = document.createElement('div')
     Object.assign(this.toolbar.style, this.options.toolbarStyles)
-    this.overlay.appendChild(this.toolbar)
+    this.overlay?.appendChild(this.toolbar)
 
     // Setup Buttons
     this._defineAlignments()
@@ -36,7 +47,7 @@ export class Toolbar extends BaseModule {
           FloatStyle.add(this.img, 'left')
           MarginStyle.add(this.img, '0 1em 1em 0')
         },
-        isApplied: () => FloatStyle.value(this.img) == 'left'
+        isApplied: () => FloatStyle.value(this.img) === 'left'
       },
       {
         icon: IconAlignCenter,
@@ -45,7 +56,7 @@ export class Toolbar extends BaseModule {
           FloatStyle.remove(this.img)
           MarginStyle.add(this.img, 'auto')
         },
-        isApplied: () => MarginStyle.value(this.img) == 'auto'
+        isApplied: () => MarginStyle.value(this.img) === 'auto'
       },
       {
         icon: IconAlignRight,
@@ -54,13 +65,13 @@ export class Toolbar extends BaseModule {
           FloatStyle.add(this.img, 'right')
           MarginStyle.add(this.img, '0 0 1em 1em')
         },
-        isApplied: () => FloatStyle.value(this.img) == 'right'
+        isApplied: () => FloatStyle.value(this.img) === 'right'
       }
     ]
   }
 
   _addToolbarButtons = () => {
-    const buttons = []
+    const buttons: HTMLSpanElement[] = []
     this.alignments.forEach((alignment, idx) => {
       const button = document.createElement('span')
       buttons.push(button)
@@ -85,12 +96,12 @@ export class Toolbar extends BaseModule {
       if (idx > 0) {
         button.style.borderLeftWidth = '0'
       }
-      Object.assign(button.children[0].style, this.options.toolbarButtonSvgStyles)
+      Object.assign((button.children[0] as HTMLOrSVGImageElement).style, this.options.toolbarButtonSvgStyles)
       if (alignment.isApplied()) {
         // select button if previously applied
         this._selectButton(button)
       }
-      this.toolbar.appendChild(button)
+      this.toolbar?.appendChild(button)
     })
   }
 

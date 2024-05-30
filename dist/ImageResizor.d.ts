@@ -1,14 +1,6 @@
 import { default as Quill } from 'quill';
+import { ImageResizorOptions } from './DefaultOptions';
 
-export interface ImageResizorOptions {
-    modules?: string[];
-    overlayStyles?: Record<string, string | number>;
-    handleStyles?: Record<string, string | number>;
-    displayStyles?: Record<string, string | number>;
-    toolbarStyles?: Record<string, string | number>;
-    toolbarButtonStyles?: Record<string, string | number>;
-    toolbarButtonSvgStyles?: Record<string, string | number>;
-}
 /**
  * Custom module for quilljs to allow user to resize <img> elements
  * (Works on Chrome, Edge, Safari and replaces Firefox's native resize behavior)

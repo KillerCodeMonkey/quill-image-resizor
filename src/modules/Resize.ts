@@ -1,6 +1,16 @@
+import type ImageResizor from '../ImageResizor'
 import { BaseModule } from './BaseModule'
 
 export class Resize extends BaseModule {
+  boxes: HTMLDivElement[] = []
+  dragBox: HTMLDivElement | null = null
+  dragStartX = 0
+  preDragWidth = 0
+
+  constructor(imageResizor: ImageResizor) {
+    super(imageResizor)
+  }
+
   onCreate = () => {
     // track resize handles
     this.boxes = []
@@ -20,8 +30,8 @@ export class Resize extends BaseModule {
   }
 
   positionBoxes = () => {
-    const handleXOffset = `${-parseFloat(this.options.handleStyles.width) / 2}px`
-    const handleYOffset = `${-parseFloat(this.options.handleStyles.height) / 2}px`
+    const handleXOffset = `${-parseFloat(this.options.handleStyles?.width.toString() || '0') / 2}px`
+    const handleYOffset = `${-parseFloat(this.options.handleStyles?.height.toString() || '0') / 2}px`
 
     // set the top and left for each drag handle
     ;[
@@ -43,24 +53,24 @@ export class Resize extends BaseModule {
     box.style.cursor = cursor
 
     // Set the width/height to use 'px'
-    box.style.width = `${this.options.handleStyles.width}px`
-    box.style.height = `${this.options.handleStyles.height}px`
+    box.style.width = `${this.options.handleStyles?.width || 0}px`
+    box.style.height = `${this.options.handleStyles?.height || 0}px`
 
     // listen for mousedown on each box
     box.addEventListener('mousedown', this.handleMousedown, false)
     // add drag handle to document
-    this.overlay.appendChild(box)
+    this.overlay?.appendChild(box)
     // keep track of drag handle
     this.boxes.push(box)
   }
 
-  handleMousedown = (evt) => {
+  handleMousedown = (evt: MouseEvent) => {
     // note which box
-    this.dragBox = evt.target
+    this.dragBox = evt.target as HTMLDivElement
     // note starting mousedown position
     this.dragStartX = evt.clientX
     // store the width before the drag
-    this.preDragWidth = this.img.width || this.img.naturalWidth
+    this.preDragWidth = this.img?.width || this.img?.naturalWidth || 0
     // set the proper cursor everywhere
     this.setCursor(this.dragBox.style.cursor)
     // listen for movement and mouseup
@@ -94,8 +104,11 @@ export class Resize extends BaseModule {
   }
 
   setCursor = (value) => {
-    ;[document.body, this.img].forEach((el) => {
-      el.style.cursor = value // eslint-disable-line no-param-reassign
+    const elements = [document.body, this.img]
+    elements.forEach((el) => {
+      if (el) {
+        el.style.cursor = value
+      }
     })
   }
 }

@@ -1,6 +1,13 @@
+import type ImageResizor from '../ImageResizor'
 import { BaseModule } from './BaseModule'
 
 export class DisplaySize extends BaseModule {
+  display: HTMLDivElement | null = null
+
+  constructor(imageResizor: ImageResizor) {
+    super(imageResizor)
+  }
+
   onCreate = () => {
     // Create the container to hold the size display
     this.display = document.createElement('div')
@@ -9,7 +16,7 @@ export class DisplaySize extends BaseModule {
     Object.assign(this.display.style, this.options.displayStyles)
 
     // Attach it
-    this.overlay.appendChild(this.display)
+    this.overlay?.appendChild(this.display)
   }
 
   onDestroy = () => {}
@@ -47,5 +54,8 @@ export class DisplaySize extends BaseModule {
     }
   }
 
-  getCurrentSize = () => [this.img.width, Math.round((this.img.width / this.img.naturalWidth) * this.img.naturalHeight)]
+  getCurrentSize = () => [
+    this.img?.width || 0,
+    this.img ? Math.round((this.img.width / this.img.naturalWidth) * this.img.naturalHeight) : 0
+  ]
 }

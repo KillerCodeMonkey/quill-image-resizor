@@ -1,5 +1,13 @@
-export class BaseModule {
-  constructor(resizer) {
+import { ImageResizorOptions } from '../DefaultOptions'
+import type ImageResizor from '../ImageResizor'
+
+export abstract class BaseModule {
+  overlay?: HTMLDivElement
+  img?: HTMLImageElement
+  options: ImageResizorOptions
+  requestUpdate: () => void
+
+  constructor(resizer: ImageResizor) {
     this.overlay = resizer.overlay
     this.img = resizer.img
     this.options = resizer.options

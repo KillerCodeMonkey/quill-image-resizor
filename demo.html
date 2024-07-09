@@ -14,6 +14,13 @@
       integrity="sha512-UmV2ARg2MsY8TysMjhJvXSQHYgiYSVPS5ULXZCsTP3RgiMmBJhf8qP93vEyJgYuGt3u9V6wem73b11/Y8GVcOg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.bubble.min.css"
+      integrity="sha512-/7xGl11n/6f/vbRmITKPWT3I0xFG9hExxOoBjabIQDyXi9lGai/OM8QYUBZp/asaRfIw3Ie/i61i50HjDRXnGg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
     <script type="module" src="./dist/ImageResizor.js"></script>
   </head>
 
@@ -31,10 +38,30 @@
           src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png" />
       </p>
     </div>
+
+    <div style="border: 1px solid #ccc; margin-top: 16px" id="editor-bubble" style="max-height: 500px; overflow: auto">
+      <p>Click on the Image Below to resize</p>
+      <p>
+        <img
+          src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png" />
+      </p>
+      <p>Some initial <strong>bold</strong> text</p>
+      <p>
+        <img
+          src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png" />
+      </p>
+    </div>
     <script defer>
       document.addEventListener('DOMContentLoaded', () => {
-        var quill = new Quill('#editor', {
+        const quill = new Quill('#editor', {
           theme: 'snow',
+          modules: {
+            imageResizor: {}
+          }
+        })
+
+        const quillBubble = new Quill('#editor-bubble', {
+          theme: 'bubble',
           modules: {
             imageResizor: {}
           }

@@ -36,7 +36,7 @@ function Ge(e) {
     return e;
   };
 }
-var Re = Ge, ke = typeof C == "object" && C && C.Object === Object && C, de = ke, qe = de, He = typeof self == "object" && self && self.Object === Object && self, Ne = qe || He || Function("return this")(), g = Ne, Ke = g, We = Ke.Symbol, pe = We, N = pe, fe = Object.prototype, Xe = fe.hasOwnProperty, Ve = fe.toString, m = N ? N.toStringTag : void 0;
+var Re = Ge, qe = typeof C == "object" && C && C.Object === Object && C, de = qe, ke = de, He = typeof self == "object" && self && self.Object === Object && self, Ne = ke || He || Function("return this")(), g = Ne, Ke = g, We = Ke.Symbol, pe = We, N = pe, fe = Object.prototype, Xe = fe.hasOwnProperty, Ve = fe.toString, m = N ? N.toStringTag : void 0;
 function Qe(e) {
   var t = Xe.call(e, m), r = e[m];
   try {
@@ -106,13 +106,13 @@ function Rt(e, t) {
   var r = Gt(e, t);
   return Ft(r) ? r : void 0;
 }
-var z = Rt, kt = z, qt = function() {
+var z = Rt, qt = z, kt = function() {
   try {
-    var e = kt(Object, "defineProperty");
+    var e = qt(Object, "defineProperty");
     return e({}, "", {}), e;
   } catch {
   }
-}(), ve = qt, Ht = Re, V = ve, Nt = ue, Kt = V ? function(e, t) {
+}(), ve = kt, Ht = Re, V = ve, Nt = ue, Kt = V ? function(e, t) {
   return V(e, "toString", {
     configurable: !0,
     enumerable: !1,
@@ -203,7 +203,7 @@ var Ur = Lr;
 function zr(e) {
   return this.__data__.has(e);
 }
-var Fr = zr, Gr = z, Rr = g, kr = Gr(Rr, "Map"), ye = kr, qr = z, Hr = qr(Object, "create"), E = Hr, Q = E;
+var Fr = zr, Gr = z, Rr = g, qr = Gr(Rr, "Map"), ye = qr, kr = z, Hr = kr(Object, "create"), E = Hr, Q = E;
 function Nr() {
   this.__data__ = Q ? Q(null) : {}, this.size = 0;
 }
@@ -293,12 +293,12 @@ _.prototype.delete = Ua;
 _.prototype.get = za;
 _.prototype.has = Fa;
 _.prototype.set = Ga;
-var Ra = _, ka = P, qa = ye, Ha = Ra, Na = 200;
+var Ra = _, qa = P, ka = ye, Ha = Ra, Na = 200;
 function Ka(e, t) {
   var r = this.__data__;
-  if (r instanceof ka) {
+  if (r instanceof qa) {
     var a = r.__data__;
-    if (!qa || a.length < Na - 1)
+    if (!ka || a.length < Na - 1)
       return a.push([e, t]), this.size = ++r.size, this;
     r = this.__data__ = new Ha(a);
   }
@@ -402,10 +402,10 @@ var O = Bi, Li = A, Ui = O, zi = "[object Arguments]";
 function Fi(e) {
   return Ui(e) && Li(e) == zi;
 }
-var Gi = Fi, te = Gi, Ri = O, me = Object.prototype, ki = me.hasOwnProperty, qi = me.propertyIsEnumerable, Hi = te(/* @__PURE__ */ function() {
+var Gi = Fi, te = Gi, Ri = O, me = Object.prototype, qi = me.hasOwnProperty, ki = me.propertyIsEnumerable, Hi = te(/* @__PURE__ */ function() {
   return arguments;
 }()) ? te : function(e) {
-  return Ri(e) && ki.call(e, "callee") && !qi.call(e, "callee");
+  return Ri(e) && qi.call(e, "callee") && !ki.call(e, "callee");
 }, xe = Hi, Ni = Array.isArray, Oe = Ni, Ki = 9007199254740991;
 function Wi(e) {
   return typeof e == "number" && e > -1 && e % 1 == 0 && e <= Ki;
@@ -445,12 +445,12 @@ function Gs(e) {
   return vs(e) && fs(e.length) && !!h[ps(e)];
 }
 var Rs = Gs;
-function ks(e) {
+function qs(e) {
   return function(t) {
     return e(t);
   };
 }
-var qs = ks, T = { exports: {} };
+var ks = qs, T = { exports: {} };
 T.exports;
 (function(e, t) {
   var r = de, a = t && !t.nodeType && t, s = a && !0 && e && !e.nodeType && e, i = s && s.exports === a, n = i && r.process, o = function() {
@@ -462,7 +462,7 @@ T.exports;
   }();
   e.exports = o;
 })(T, T.exports);
-var Hs = T.exports, Ns = Rs, Ks = qs, re = Hs, ae = re && re.isTypedArray, Ws = ae ? Ks(ae) : Ns, je = Ws;
+var Hs = T.exports, Ns = Rs, Ks = ks, re = Hs, ae = re && re.isTypedArray, Ws = ae ? Ks(ae) : Ns, je = Ws;
 function Xs(e, t) {
   if (!(t === "constructor" && typeof e[t] == "function") && t != "__proto__")
     return e[t];
@@ -529,7 +529,7 @@ var Ie = En, Dn = sn, Bn = Ie;
 function Ln(e) {
   return Dn(e, Bn(e));
 }
-var Un = Ln, ie = be, zn = ci, Fn = bi, Gn = $i, Rn = Di, se = xe, ne = Oe, kn = es, qn = Se, Hn = U, Nn = p, Kn = ds, Wn = je, oe = Te, Xn = Un;
+var Un = Ln, ie = be, zn = ci, Fn = bi, Gn = $i, Rn = Di, se = xe, ne = Oe, qn = es, kn = Se, Hn = U, Nn = p, Kn = ds, Wn = je, oe = Te, Xn = Un;
 function Vn(e, t, r, a, s, i, n) {
   var o = oe(e, r), l = oe(t, r), c = n.get(l);
   if (c) {
@@ -538,8 +538,8 @@ function Vn(e, t, r, a, s, i, n) {
   }
   var u = i ? i(o, l, r + "", e, t, n) : void 0, d = u === void 0;
   if (d) {
-    var f = ne(l), B = !f && qn(l), q = !f && !B && Wn(l);
-    u = l, f || B || q ? ne(o) ? u = o : kn(o) ? u = Gn(o) : B ? (d = !1, u = zn(l, !0)) : q ? (d = !1, u = Fn(l, !0)) : u = [] : Kn(l) || se(l) ? (u = o, se(o) ? u = Xn(o) : (!Nn(o) || Hn(o)) && (u = Rn(l))) : d = !1;
+    var f = ne(l), B = !f && kn(l), k = !f && !B && Wn(l);
+    u = l, f || B || k ? ne(o) ? u = o : qn(o) ? u = Gn(o) : B ? (d = !1, u = zn(l, !0)) : k ? (d = !1, u = Fn(l, !0)) : u = [] : Kn(l) || se(l) ? (u = o, se(o) ? u = Xn(o) : (!Nn(o) || Hn(o)) && (u = Rn(l))) : d = !1;
   }
   d && (n.set(l, u), s(u, l, a, i, n), n.delete(l)), ie(e, r, u);
 }
@@ -696,7 +696,7 @@ const Io = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
   <line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line>
   <line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line>
-</svg>`, k = window.Quill.imports.parchment, v = new k.StyleAttributor("float", "float"), x = new k.StyleAttributor("margin", "margin"), S = new k.StyleAttributor("display", "display");
+</svg>`, q = window.Quill.imports.parchment, v = new q.StyleAttributor("float", "float"), x = new q.StyleAttributor("margin", "margin"), S = new q.StyleAttributor("display", "display");
 class Eo extends R {
   constructor(t) {
     super(t), this.alignments = [], this.onCreate = () => {
@@ -803,12 +803,11 @@ class Uo {
         if (this.img === n)
           return;
         this.img && this.hide(), this.show(n);
-      } else
-        this.img && this.hide();
+      } else this.img && this.hide();
     }, this.show = (i) => {
       this.img = i, this.showOverlay(), this.initializeModules();
     }, this.showOverlay = () => {
-      this.overlay && this.hideOverlay(), this.quill.setSelection(null), this.setUserSelect("none"), document.addEventListener("keyup", this.checkImageKeyUp, !0), this.quill.root.addEventListener("input", this.checkImageInput, !0), this.overlay = document.createElement("div"), Object.assign(this.overlay.style, this.options.overlayStyles), this.quill.root.parentNode.appendChild(this.overlay), this.repositionElements();
+      this.overlay && this.hideOverlay(), this.quill.setSelection(null), this.setUserSelect("none"), document.addEventListener("keyup", this.checkImageKeyUp, !0), this.quill.root.addEventListener("input", this.checkImageInput, !0), this.overlay = document.createElement("div"), this.overlay.classList.add("ql-image-resizor"), Object.assign(this.overlay.style, this.options.overlayStyles), this.quill.root.parentNode.appendChild(this.overlay), this.repositionElements();
     }, this.hideOverlay = () => {
       this.overlay && (this.quill.root.parentNode.removeChild(this.overlay), this.overlay = void 0, document.removeEventListener("keyup", this.checkImageKeyUp), this.quill.root.removeEventListener("input", this.checkImageInput), this.setUserSelect(""));
     }, this.repositionElements = () => {

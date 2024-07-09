@@ -122,6 +122,7 @@ export default class ImageResizor {
 
     // Create and add the overlay
     this.overlay = document.createElement('div')
+    this.overlay.classList.add('ql-image-resizor')
     Object.assign(this.overlay.style, this.options.overlayStyles)
 
     this.quill.root.parentNode!.appendChild(this.overlay)

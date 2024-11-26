@@ -3,7 +3,7 @@ import DefaultOptions from './DefaultOptions'
 import { DisplaySize } from './modules/DisplaySize'
 import { Toolbar } from './modules/Toolbar'
 import { Resize } from './modules/Resize'
-import type Quill from 'quill'
+import Quill from 'quill'
 import type { ImageResizorOptions } from './DefaultOptions'
 
 const userSelects = Object.freeze(['userSelect', 'mozUserSelect', 'webkitUserSelect', 'msUserSelect'])
@@ -26,6 +26,8 @@ export default class ImageResizor {
     onUpdate: () => void
     onDestroy: () => void
   }[] = []
+
+  static Quill: Quill = window['Quill']
 
   constructor(quill: Quill, options: ImageResizorOptions = {}) {
     this.initializeModules = this.initializeModules.bind(this)
@@ -182,7 +184,8 @@ export default class ImageResizor {
   checkImageKeyUp = (evt: KeyboardEvent) => {
     if (this.img) {
       if (['Backspace', 'Delete'].includes(evt.code)) {
-        window['Quill']?.find(this.img).deleteAt(0)
+        const blot = window['Quill']?.find(this.img)
+        if (blot) blot.deleteAt(0)
       }
       this.hide()
     }
@@ -191,7 +194,8 @@ export default class ImageResizor {
   checkImageInput = (evt: Event) => {
     if (this.img) {
       if (['deleteContentForward', 'deleteContentBackward'].includes((evt as InputEvent).inputType)) {
-        window['Quill']?.find(this.img).deleteAt(0)
+        const blot = window['Quill']?.find(this.img)
+        if (blot) blot.deleteAt(0)
       }
       this.hide()
     }

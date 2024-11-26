@@ -1,4 +1,4 @@
-var C = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+var S = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
 function Le(e) {
   return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
@@ -16,10 +16,10 @@ function Ue(e, t, r) {
   return e.apply(t, r);
 }
 var de = Ue;
-function ze(e) {
+function Fe(e) {
   return e;
 }
-var pe = ze, Fe = de, K = Math.max;
+var pe = Fe, ze = de, K = Math.max;
 function Ge(e, t, r) {
   return t = K(t === void 0 ? e.length - 1 : t, 0), function() {
     for (var a = arguments, s = -1, i = K(a.length - t, 0), n = Array(i); ++s < i; )
@@ -27,7 +27,7 @@ function Ge(e, t, r) {
     s = -1;
     for (var o = Array(t + 1); ++s < t; )
       o[s] = a[s];
-    return o[t] = r(n), Fe(e, this, o);
+    return o[t] = r(n), ze(e, this, o);
   };
 }
 var qe = Ge;
@@ -36,7 +36,7 @@ function ke(e) {
     return e;
   };
 }
-var Re = ke, He = typeof C == "object" && C && C.Object === Object && C, fe = He, Ne = fe, Ke = typeof self == "object" && self && self.Object === Object && self, We = Ne || Ke || Function("return this")(), g = We, Xe = g, Ve = Xe.Symbol, ve = Ve, W = ve, ge = Object.prototype, Qe = ge.hasOwnProperty, Je = ge.toString, m = W ? W.toStringTag : void 0;
+var Re = ke, He = typeof S == "object" && S && S.Object === Object && S, fe = He, Ne = fe, Ke = typeof self == "object" && self && self.Object === Object && self, We = Ne || Ke || Function("return this")(), g = We, Xe = g, Ve = Xe.Symbol, ve = Ve, W = ve, ge = Object.prototype, Qe = ge.hasOwnProperty, Je = ge.toString, m = W ? W.toStringTag : void 0;
 function Ye(e) {
   var t = Qe.call(e, m), r = e[m];
   try {
@@ -55,20 +55,20 @@ var at = rt, X = ve, it = Ze, st = at, nt = "[object Null]", ot = "[object Undef
 function lt(e) {
   return e == null ? e === void 0 ? ot : nt : V && V in Object(e) ? it(e) : st(e);
 }
-var A = lt;
+var M = lt;
 function ht(e) {
   var t = typeof e;
   return e != null && (t == "object" || t == "function");
 }
-var p = ht, ct = A, ut = p, dt = "[object AsyncFunction]", pt = "[object Function]", ft = "[object GeneratorFunction]", vt = "[object Proxy]";
+var p = ht, ct = M, ut = p, dt = "[object AsyncFunction]", pt = "[object Function]", ft = "[object GeneratorFunction]", vt = "[object Proxy]";
 function gt(e) {
   if (!ut(e))
     return !1;
   var t = ct(e);
   return t == pt || t == ft || t == dt || t == vt;
 }
-var z = gt, yt = g, bt = yt["__core-js_shared__"], _t = bt, L = _t, Q = function() {
-  var e = /[^.]+$/.exec(L && L.keys && L.keys.IE_PROTO || "");
+var z = gt, yt = g, bt = yt["__core-js_shared__"], _t = bt, U = _t, Q = function() {
+  var e = /[^.]+$/.exec(U && U.keys && U.keys.IE_PROTO || "");
   return e ? "Symbol(src)_1." + e : "";
 }();
 function $t(e) {
@@ -97,16 +97,16 @@ function Ut(e) {
   var t = wt(e) ? Lt : It;
   return t.test(At(e));
 }
-var zt = Ut;
-function Ft(e, t) {
+var Ft = Ut;
+function zt(e, t) {
   return e == null ? void 0 : e[t];
 }
-var Gt = Ft, qt = zt, kt = Gt;
+var Gt = zt, qt = Ft, kt = Gt;
 function Rt(e, t) {
   var r = kt(e, t);
   return qt(r) ? r : void 0;
 }
-var F = Rt, Ht = F, Nt = function() {
+var G = Rt, Ht = G, Nt = function() {
   try {
     var e = Ht(Object, "defineProperty");
     return e({}, "", {}), e;
@@ -144,14 +144,14 @@ var cr = hr;
 function ur(e, t) {
   return e === t || e !== e && t !== t;
 }
-var M = ur, dr = M;
+var I = ur, dr = I;
 function pr(e, t) {
   for (var r = e.length; r--; )
     if (dr(e[r][0], t))
       return r;
   return -1;
 }
-var I = pr, fr = I, vr = Array.prototype, gr = vr.splice;
+var P = pr, fr = P, vr = Array.prototype, gr = vr.splice;
 function yr(e) {
   var t = this.__data__, r = fr(t, e);
   if (r < 0)
@@ -159,16 +159,16 @@ function yr(e) {
   var a = t.length - 1;
   return r == a ? t.pop() : gr.call(t, r, 1), --this.size, !0;
 }
-var br = yr, _r = I;
+var br = yr, _r = P;
 function $r(e) {
   var t = this.__data__, r = _r(t, e);
   return r < 0 ? void 0 : t[r][1];
 }
-var mr = $r, xr = I;
+var mr = $r, xr = P;
 function Or(e) {
   return xr(this.__data__, e) > -1;
 }
-var Cr = Or, Sr = I;
+var Cr = Or, Sr = P;
 function wr(e, t) {
   var r = this.__data__, a = Sr(r, e);
   return a < 0 ? (++this.size, r.push([e, t])) : r[a][1] = t, this;
@@ -186,7 +186,7 @@ y.prototype.delete = Ar;
 y.prototype.get = Mr;
 y.prototype.has = Ir;
 y.prototype.set = Pr;
-var P = y, Er = P;
+var E = y, Er = E;
 function Dr() {
   this.__data__ = new Er(), this.size = 0;
 }
@@ -196,14 +196,14 @@ function Lr(e) {
   return this.size = t.size, r;
 }
 var Ur = Lr;
-function zr(e) {
+function Fr(e) {
   return this.__data__.get(e);
 }
-var Fr = zr;
+var zr = Fr;
 function Gr(e) {
   return this.__data__.has(e);
 }
-var qr = Gr, kr = F, Rr = g, Hr = kr(Rr, "Map"), _e = Hr, Nr = F, Kr = Nr(Object, "create"), E = Kr, Y = E;
+var qr = Gr, kr = G, Rr = g, Hr = kr(Rr, "Map"), _e = Hr, Nr = G, Kr = Nr(Object, "create"), D = Kr, Y = D;
 function Wr() {
   this.__data__ = Y ? Y(null) : {}, this.size = 0;
 }
@@ -212,7 +212,7 @@ function Vr(e) {
   var t = this.has(e) && delete this.__data__[e];
   return this.size -= t ? 1 : 0, t;
 }
-var Qr = Vr, Jr = E, Yr = "__lodash_hash_undefined__", Zr = Object.prototype, ea = Zr.hasOwnProperty;
+var Qr = Vr, Jr = D, Yr = "__lodash_hash_undefined__", Zr = Object.prototype, ea = Zr.hasOwnProperty;
 function ta(e) {
   var t = this.__data__;
   if (Jr) {
@@ -221,12 +221,12 @@ function ta(e) {
   }
   return ea.call(t, e) ? t[e] : void 0;
 }
-var ra = ta, aa = E, ia = Object.prototype, sa = ia.hasOwnProperty;
+var ra = ta, aa = D, ia = Object.prototype, sa = ia.hasOwnProperty;
 function na(e) {
   var t = this.__data__;
   return aa ? t[e] !== void 0 : sa.call(t, e);
 }
-var oa = na, la = E, ha = "__lodash_hash_undefined__";
+var oa = na, la = D, ha = "__lodash_hash_undefined__";
 function ca(e, t) {
   var r = this.__data__;
   return this.size += this.has(e) ? 0 : 1, r[e] = la && t === void 0 ? ha : t, this;
@@ -244,7 +244,7 @@ b.prototype.delete = pa;
 b.prototype.get = fa;
 b.prototype.has = va;
 b.prototype.set = ga;
-var ya = b, Z = ya, ba = P, _a = _e;
+var ya = b, Z = ya, ba = E, _a = _e;
 function $a() {
   this.size = 0, this.__data__ = {
     hash: new Z(),
@@ -262,25 +262,25 @@ function Sa(e, t) {
   var r = e.__data__;
   return Ca(t) ? r[typeof t == "string" ? "string" : "hash"] : r.map;
 }
-var D = Sa, wa = D;
+var B = Sa, wa = B;
 function ja(e) {
   var t = wa(this, e).delete(e);
   return this.size -= t ? 1 : 0, t;
 }
-var Ta = ja, Aa = D;
+var Ta = ja, Aa = B;
 function Ma(e) {
   return Aa(this, e).get(e);
 }
-var Ia = Ma, Pa = D;
+var Ia = Ma, Pa = B;
 function Ea(e) {
   return Pa(this, e).has(e);
 }
-var Da = Ea, Ba = D;
+var Da = Ea, Ba = B;
 function La(e, t) {
   var r = Ba(this, e), a = r.size;
   return r.set(e, t), this.size += r.size == a ? 0 : 1, this;
 }
-var Ua = La, za = ma, Fa = Ta, Ga = Ia, qa = Da, ka = Ua;
+var Ua = La, Fa = ma, za = Ta, Ga = Ia, qa = Da, ka = Ua;
 function _(e) {
   var t = -1, r = e == null ? 0 : e.length;
   for (this.clear(); ++t < r; ) {
@@ -288,12 +288,12 @@ function _(e) {
     this.set(a[0], a[1]);
   }
 }
-_.prototype.clear = za;
-_.prototype.delete = Fa;
+_.prototype.clear = Fa;
+_.prototype.delete = za;
 _.prototype.get = Ga;
 _.prototype.has = qa;
 _.prototype.set = ka;
-var Ra = _, Ha = P, Na = _e, Ka = Ra, Wa = 200;
+var Ra = _, Ha = E, Na = _e, Ka = Ra, Wa = 200;
 function Xa(e, t) {
   var r = this.__data__;
   if (r instanceof Ha) {
@@ -304,7 +304,7 @@ function Xa(e, t) {
   }
   return r.set(e, t), this.size = r.size, this;
 }
-var Va = Xa, Qa = P, Ja = Br, Ya = Ur, Za = Fr, ei = qr, ti = Va;
+var Va = Xa, Qa = E, Ja = Br, Ya = Ur, Za = zr, ei = qr, ti = Va;
 function $(e) {
   var t = this.__data__ = new Qa(e);
   this.size = t.size;
@@ -323,7 +323,7 @@ function ai(e, t, r) {
     writable: !0
   }) : e[t] = r;
 }
-var G = ai, ii = G, si = M;
+var q = ai, ii = q, si = I;
 function ni(e, t, r) {
   (r !== void 0 && !si(e[t], r) || r === void 0 && !(t in e)) && ii(e, t, r);
 }
@@ -338,8 +338,8 @@ function oi(e) {
     return t;
   };
 }
-var li = oi, hi = li, ci = hi(), ui = ci, w = { exports: {} };
-w.exports;
+var li = oi, hi = li, ci = hi(), ui = ci, j = { exports: {} };
+j.exports;
 (function(e, t) {
   var r = g, a = t && !t.nodeType && t, s = a && !0 && e && !e.nodeType && e, i = s && s.exports === a, n = i ? r.Buffer : void 0, o = n ? n.allocUnsafe : void 0;
   function l(c, u) {
@@ -349,8 +349,8 @@ w.exports;
     return c.copy(f), f;
   }
   e.exports = l;
-})(w, w.exports);
-var di = w.exports, pi = g, fi = pi.Uint8Array, vi = fi, te = vi;
+})(j, j.exports);
+var di = j.exports, pi = g, fi = pi.Uint8Array, vi = fi, te = vi;
 function gi(e) {
   var t = new e.constructor(e.byteLength);
   return new te(t).set(new te(e)), t;
@@ -398,11 +398,11 @@ var Li = Bi;
 function Ui(e) {
   return e != null && typeof e == "object";
 }
-var O = Ui, zi = A, Fi = O, Gi = "[object Arguments]";
+var C = Ui, Fi = M, zi = C, Gi = "[object Arguments]";
 function qi(e) {
-  return Fi(e) && zi(e) == Gi;
+  return zi(e) && Fi(e) == Gi;
 }
-var ki = qi, ae = ki, Ri = O, Oe = Object.prototype, Hi = Oe.hasOwnProperty, Ni = Oe.propertyIsEnumerable, Ki = ae(/* @__PURE__ */ function() {
+var ki = qi, ae = ki, Ri = C, Oe = Object.prototype, Hi = Oe.hasOwnProperty, Ni = Oe.propertyIsEnumerable, Ki = ae(/* @__PURE__ */ function() {
   return arguments;
 }()) ? ae : function(e) {
   return Ri(e) && Hi.call(e, "callee") && !Ni.call(e, "callee");
@@ -414,21 +414,21 @@ var we = Vi, Qi = z, Ji = we;
 function Yi(e) {
   return e != null && Ji(e.length) && !Qi(e);
 }
-var q = Yi, Zi = q, es = O;
+var k = Yi, Zi = k, es = C;
 function ts(e) {
   return es(e) && Zi(e);
 }
-var rs = ts, j = { exports: {} };
+var rs = ts, T = { exports: {} };
 function as() {
   return !1;
 }
 var is = as;
-j.exports;
+T.exports;
 (function(e, t) {
   var r = g, a = is, s = t && !t.nodeType && t, i = s && !0 && e && !e.nodeType && e, n = i && i.exports === s, o = n ? r.Buffer : void 0, l = o ? o.isBuffer : void 0, c = l || a;
   e.exports = c;
-})(j, j.exports);
-var je = j.exports, ss = A, ns = me, os = O, ls = "[object Object]", hs = Function.prototype, cs = Object.prototype, Te = hs.toString, us = cs.hasOwnProperty, ds = Te.call(Object);
+})(T, T.exports);
+var je = T.exports, ss = M, ns = me, os = C, ls = "[object Object]", hs = Function.prototype, cs = Object.prototype, Te = hs.toString, us = cs.hasOwnProperty, ds = Te.call(Object);
 function ps(e) {
   if (!os(e) || ss(e) != ls)
     return !1;
@@ -438,8 +438,8 @@ function ps(e) {
   var r = us.call(t, "constructor") && t.constructor;
   return typeof r == "function" && r instanceof r && Te.call(r) == ds;
 }
-var fs = ps, vs = A, gs = we, ys = O, bs = "[object Arguments]", _s = "[object Array]", $s = "[object Boolean]", ms = "[object Date]", xs = "[object Error]", Os = "[object Function]", Cs = "[object Map]", Ss = "[object Number]", ws = "[object Object]", js = "[object RegExp]", Ts = "[object Set]", As = "[object String]", Ms = "[object WeakMap]", Is = "[object ArrayBuffer]", Ps = "[object DataView]", Es = "[object Float32Array]", Ds = "[object Float64Array]", Bs = "[object Int8Array]", Ls = "[object Int16Array]", Us = "[object Int32Array]", zs = "[object Uint8Array]", Fs = "[object Uint8ClampedArray]", Gs = "[object Uint16Array]", qs = "[object Uint32Array]", h = {};
-h[Es] = h[Ds] = h[Bs] = h[Ls] = h[Us] = h[zs] = h[Fs] = h[Gs] = h[qs] = !0;
+var fs = ps, vs = M, gs = we, ys = C, bs = "[object Arguments]", _s = "[object Array]", $s = "[object Boolean]", ms = "[object Date]", xs = "[object Error]", Os = "[object Function]", Cs = "[object Map]", Ss = "[object Number]", ws = "[object Object]", js = "[object RegExp]", Ts = "[object Set]", As = "[object String]", Ms = "[object WeakMap]", Is = "[object ArrayBuffer]", Ps = "[object DataView]", Es = "[object Float32Array]", Ds = "[object Float64Array]", Bs = "[object Int8Array]", Ls = "[object Int16Array]", Us = "[object Int32Array]", Fs = "[object Uint8Array]", zs = "[object Uint8ClampedArray]", Gs = "[object Uint16Array]", qs = "[object Uint32Array]", h = {};
+h[Es] = h[Ds] = h[Bs] = h[Ls] = h[Us] = h[Fs] = h[zs] = h[Gs] = h[qs] = !0;
 h[bs] = h[_s] = h[Is] = h[$s] = h[Ps] = h[ms] = h[xs] = h[Os] = h[Cs] = h[Ss] = h[ws] = h[js] = h[Ts] = h[As] = h[Ms] = !1;
 function ks(e) {
   return ys(e) && gs(e.length) && !!h[vs(e)];
@@ -450,8 +450,8 @@ function Hs(e) {
     return e(t);
   };
 }
-var Ns = Hs, T = { exports: {} };
-T.exports;
+var Ns = Hs, A = { exports: {} };
+A.exports;
 (function(e, t) {
   var r = fe, a = t && !t.nodeType && t, s = a && !0 && e && !e.nodeType && e, i = s && s.exports === a, n = i && r.process, o = function() {
     try {
@@ -461,18 +461,18 @@ T.exports;
     }
   }();
   e.exports = o;
-})(T, T.exports);
-var Ks = T.exports, Ws = Rs, Xs = Ns, ie = Ks, se = ie && ie.isTypedArray, Vs = se ? Xs(se) : Ws, Ae = Vs;
+})(A, A.exports);
+var Ks = A.exports, Ws = Rs, Xs = Ns, ie = Ks, se = ie && ie.isTypedArray, Vs = se ? Xs(se) : Ws, Ae = Vs;
 function Qs(e, t) {
   if (!(t === "constructor" && typeof e[t] == "function") && t != "__proto__")
     return e[t];
 }
-var Me = Qs, Js = G, Ys = M, Zs = Object.prototype, en = Zs.hasOwnProperty;
+var Me = Qs, Js = q, Ys = I, Zs = Object.prototype, en = Zs.hasOwnProperty;
 function tn(e, t, r) {
   var a = e[t];
   (!(en.call(e, t) && Ys(a, r)) || r === void 0 && !(t in e)) && Js(e, t, r);
 }
-var rn = tn, an = rn, sn = G;
+var rn = tn, an = rn, sn = q;
 function nn(e, t, r, a) {
   var s = !r;
   r || (r = {});
@@ -521,15 +521,15 @@ function Mn(e) {
     a == "constructor" && (t || !An.call(e, a)) || r.push(a);
   return r;
 }
-var In = Mn, Pn = xn, En = In, Dn = q;
+var In = Mn, Pn = xn, En = In, Dn = k;
 function Bn(e) {
   return Dn(e) ? Pn(e, !0) : En(e);
 }
 var Pe = Bn, Ln = on, Un = Pe;
-function zn(e) {
+function Fn(e) {
   return Ln(e, Un(e));
 }
-var Fn = zn, ne = $e, Gn = di, qn = $i, kn = xi, Rn = Li, oe = Ce, le = Se, Hn = rs, Nn = je, Kn = z, Wn = p, Xn = fs, Vn = Ae, he = Me, Qn = Fn;
+var zn = Fn, ne = $e, Gn = di, qn = $i, kn = xi, Rn = Li, oe = Ce, le = Se, Hn = rs, Nn = je, Kn = z, Wn = p, Xn = fs, Vn = Ae, he = Me, Qn = zn;
 function Jn(e, t, r, a, s, i, n) {
   var o = he(e, r), l = he(t, r), c = n.get(l);
   if (c) {
@@ -538,8 +538,8 @@ function Jn(e, t, r, a, s, i, n) {
   }
   var u = i ? i(o, l, r + "", e, t, n) : void 0, d = u === void 0;
   if (d) {
-    var f = le(l), B = !f && Nn(l), N = !f && !B && Vn(l);
-    u = l, f || B || N ? le(o) ? u = o : Hn(o) ? u = kn(o) : B ? (d = !1, u = Gn(l, !0)) : N ? (d = !1, u = qn(l, !0)) : u = [] : Xn(l) || oe(l) ? (u = o, oe(o) ? u = Qn(o) : (!Wn(o) || Kn(o)) && (u = Rn(l))) : d = !1;
+    var f = le(l), L = !f && Nn(l), N = !f && !L && Vn(l);
+    u = l, f || L || N ? le(o) ? u = o : Hn(o) ? u = kn(o) : L ? (d = !1, u = Gn(l, !0)) : N ? (d = !1, u = qn(l, !0)) : u = [] : Xn(l) || oe(l) ? (u = o, oe(o) ? u = Qn(o) : (!Wn(o) || Kn(o)) && (u = Rn(l))) : d = !1;
   }
   d && (n.set(l, u), s(u, l, a, i, n), n.delete(l)), ne(e, r, u);
 }
@@ -558,7 +558,7 @@ var De = Ee, no = De, ce = p;
 function Be(e, t, r, a, s, i) {
   return ce(e) && ce(t) && (i.set(t, e), no(e, t, void 0, Be, i), i.delete(t)), e;
 }
-var oo = Be, lo = M, ho = q, co = Ie, uo = p;
+var oo = Be, lo = I, ho = k, co = Ie, uo = p;
 function po(e, t, r) {
   if (!uo(r))
     return !1;
@@ -636,7 +636,7 @@ const Ao = /* @__PURE__ */ Le(To), Mo = {
     strokeWidth: "2"
   }
 };
-class k {
+class R {
   constructor(t) {
     this.onCreate = () => {
     }, this.onDestroy = () => {
@@ -644,7 +644,7 @@ class k {
     }, this.overlay = t.overlay, this.img = t.img, this.options = t.options, this.requestUpdate = t.onUpdate;
   }
 }
-class Io extends k {
+class Io extends R {
   constructor(t) {
     super(t), this.display = null, this.onCreate = () => {
       var r;
@@ -696,8 +696,8 @@ const Po = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
   <line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line>
   <line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line>
-</svg>`, R = window.Quill.imports.parchment, v = new R.StyleAttributor("float", "float"), x = new R.StyleAttributor("margin", "margin"), S = new R.StyleAttributor("display", "display");
-class Bo extends k {
+</svg>`, H = window.Quill.imports.parchment, v = new H.StyleAttributor("float", "float"), x = new H.StyleAttributor("margin", "margin"), w = new H.StyleAttributor("display", "display");
+class Bo extends R {
   constructor(t) {
     super(t), this.alignments = [], this.onCreate = () => {
       var r;
@@ -709,21 +709,21 @@ class Bo extends k {
         {
           icon: Po,
           apply: () => {
-            S.add(this.img, "inline"), v.add(this.img, "left"), x.add(this.img, "0 1em 1em 0");
+            w.add(this.img, "inline"), v.add(this.img, "left"), x.add(this.img, "0 1em 1em 0");
           },
           isApplied: () => v.value(this.img) === "left"
         },
         {
           icon: Eo,
           apply: () => {
-            S.add(this.img, "block"), v.remove(this.img), x.add(this.img, "auto");
+            w.add(this.img, "block"), v.remove(this.img), x.add(this.img, "auto");
           },
           isApplied: () => x.value(this.img) === "auto"
         },
         {
           icon: Do,
           apply: () => {
-            S.add(this.img, "inline"), v.add(this.img, "right"), x.add(this.img, "0 0 1em 1em");
+            w.add(this.img, "inline"), v.add(this.img, "right"), x.add(this.img, "0 0 1em 1em");
           },
           isApplied: () => v.value(this.img) === "right"
         }
@@ -734,7 +734,7 @@ class Bo extends k {
         var n;
         const i = document.createElement("span");
         r.push(i), i.innerHTML = a.icon, i.addEventListener("click", () => {
-          r.forEach((o) => o.style.filter = ""), a.isApplied() ? (v.remove(this.img), x.remove(this.img), S.remove(this.img)) : (this._selectButton(i), a.apply()), this.requestUpdate();
+          r.forEach((o) => o.style.filter = ""), a.isApplied() ? (v.remove(this.img), x.remove(this.img), w.remove(this.img)) : (this._selectButton(i), a.apply()), this.requestUpdate();
         }), Object.assign(i.style, this.options.toolbarButtonStyles), s > 0 && (i.style.borderLeftWidth = "0"), Object.assign(i.children[0].style, this.options.toolbarButtonSvgStyles), a.isApplied() && this._selectButton(i), (n = this.toolbar) == null || n.appendChild(i);
       });
     }, this._selectButton = (r) => {
@@ -742,7 +742,7 @@ class Bo extends k {
     };
   }
 }
-class Lo extends k {
+class Lo extends R {
   constructor(t) {
     super(t), this.boxes = [], this.dragBox = null, this.dragStartX = 0, this.preDragWidth = 0, this.onCreate = () => {
       this.boxes = [], this.addBox("nwse-resize"), this.addBox("nesw-resize"), this.addBox("nwse-resize"), this.addBox("nesw-resize"), this.positionBoxes();
@@ -784,7 +784,9 @@ class Lo extends k {
     };
   }
 }
-const Uo = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msUserSelect"]), zo = { DisplaySize: Io, Toolbar: Bo, Resize: Lo }, H = class H {
+const Uo = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msUserSelect"]), Fo = { DisplaySize: Io, Toolbar: Bo, Resize: Lo };
+var t;
+const O = class O {
   constructor(t, r = {}) {
     var s;
     this.moduleClasses = [], this.modules = [], this.onUpdate = () => {
@@ -826,20 +828,18 @@ const Uo = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "ms
         this.quill.root.style[n] = i, document.documentElement.style[n] = i;
       });
     }, this.checkImageKeyUp = (i) => {
-      var n;
       if (this.img) {
         if (["Backspace", "Delete"].includes(i.code)) {
-          const o = (n = window.Quill) == null ? void 0 : n.find(this.img);
-          o && o.deleteAt(0);
+          const n = O.QuillFind(this.img);
+          n && n.deleteAt(0);
         }
         this.hide();
       }
     }, this.checkImageInput = (i) => {
-      var n;
       if (this.img) {
         if (["deleteContentForward", "deleteContentBackward"].includes(i.inputType)) {
-          const o = (n = window.Quill) == null ? void 0 : n.find(this.img);
-          o && o.deleteAt(0);
+          const n = O.QuillFind(this.img);
+          n && n.deleteAt(0);
         }
         this.hide();
       }
@@ -849,15 +849,15 @@ const Uo = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "ms
   }
   initializeModules() {
     var t;
-    this.removeModules(), this.modules = ((t = this.moduleClasses) == null ? void 0 : t.map((r) => new (zo[r] || r)(this))) || [], this.modules.forEach((r) => {
+    this.removeModules(), this.modules = ((t = this.moduleClasses) == null ? void 0 : t.map((r) => new (Fo[r] || r)(this))) || [], this.modules.forEach((r) => {
       r.onCreate();
     }), this.onUpdate();
   }
 };
-H.Quill = window.Quill;
-let U = H;
+O.QuillFind = ((t = window.Quill) == null ? void 0 : t.find) ?? (() => null);
+let F = O;
 var ue;
-(ue = window.Quill) == null || ue.register("modules/imageResizor", U);
+(ue = window.Quill) == null || ue.register("modules/imageResizor", F);
 export {
-  U as default
+  F as default
 };

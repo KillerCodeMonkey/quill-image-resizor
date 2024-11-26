@@ -19,6 +19,8 @@ Fork and adaptions for quill 2 of [quill-image-resize-module](https://github.com
 import Quill from 'quill'
 import { ImageResizor } from 'quill-image-resizor'
 
+// Import to get Quill.find working, when Quill is not coming from window.Quill!
+ImageResizor.QuillFind = Quill.find
 Quill.register('modules/imageResizor', ImageResizor)
 
 const quill = new Quill(editor, {

@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.3](https://github.com/inspect-js/typed-array-byte-offset/compare/v1.0.2...v1.0.3) - 2024-11-21
+
+### Fixed
+
+- [Fix] avoid relying on `__proto__` accessor [`#4`](https://github.com/inspect-js/typed-array-byte-offset/issues/4)
+
+### Commits
+
+- [types] use shared config [`10b0823`](https://github.com/inspect-js/typed-array-byte-offset/commit/10b0823ecc13b95920cfa8f27fe61af5678fb67b)
+- [actions] split out node 10-20, and 20+ [`11554a9`](https://github.com/inspect-js/typed-array-byte-offset/commit/11554a96ca11b85c7ad87118e1d811bfde2b9f32)
+- [Dev Deps] update `@arethetypeswrong/cli`, `@ljharb/eslint-config`, `@types/object-inspect`, `auto-changelog`, `object-inspect`, `tape` [`c39dd06`](https://github.com/inspect-js/typed-array-byte-offset/commit/c39dd06d2868a724463722ff2f416b5c41171140)
+- [Tests] run tsc and `@arethetypeswrong/cli` in CI [`0b984aa`](https://github.com/inspect-js/typed-array-byte-offset/commit/0b984aa64c86f4bcb476b716cdd16d67c39b68ca)
+- [Tests] replace `aud` with `npm audit` [`512b59d`](https://github.com/inspect-js/typed-array-byte-offset/commit/512b59df0e567592282795bfec331193d828f2fc)
+
 ## [v1.0.2](https://github.com/inspect-js/typed-array-byte-offset/compare/v1.0.1...v1.0.2) - 2024-02-20
 
 ### Commits

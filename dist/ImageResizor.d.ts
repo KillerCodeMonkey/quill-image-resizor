@@ -17,6 +17,7 @@ export default class ImageResizor {
         onUpdate: () => void;
         onDestroy: () => void;
     }[];
+    static QuillFind: any;
     constructor(quill: Quill, options?: ImageResizorOptions);
     initializeModules(): void;
     onUpdate: () => void;

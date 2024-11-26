@@ -77,6 +77,25 @@ import foo from './foo';
 var path = require('path');
 ```
 
+## Limitations of `--fix`
+
+Unbound imports are assumed to have side effects, and will never be moved/reordered. This can cause other imports to get "stuck" around them, and the fix to fail.
+
+```javascript
+import b from 'b'
+import 'format.css';  // This will prevent --fix from working.
+import a from 'a'
+```
+
+As a workaround, move unbound imports to be entirely above or below bound ones.
+
+```javascript
+import 'format1.css';  // OK
+import b from 'b'
+import a from 'a'
+import 'format2.css';  // OK
+```
+
 ## Options
 
 This rule supports the following options:
@@ -174,7 +193,7 @@ Example:
 ### `pathGroupsExcludedImportTypes: [array]`
 
 This defines import types that are not handled by configured pathGroups.
-This is mostly needed when you want to handle path groups that look like external imports.
+If you have added path groups with patterns that look like `"builtin"` or `"external"` imports, you have to remove this group (`"builtin"` and/or `"external"`) from the default exclusion list (e.g., `["builtin", "external", "object"]`, etc) to sort these path groups correctly.
 
 Example:
 
@@ -193,29 +212,7 @@ Example:
 }
 ```
 
-You can also use `patterns`(e.g., `react`, `react-router-dom`, etc).
-
-Example:
-
-```json
-{
-  "import/order": [
-    "error",
-    {
-      "pathGroups": [
-        {
-          "pattern": "react",
-          "group": "builtin",
-          "position": "before"
-        }
-      ],
-      "pathGroupsExcludedImportTypes": ["react"]
-    }
-  ]
-}
-```
-
-The default value is `["builtin", "external", "object"]`.
+[Import Type](https://github.com/import-js/eslint-plugin-import/blob/HEAD/src/core/importType.js#L90) is resolved as a fixed string in predefined set, it can't be a `patterns`(e.g., `react`, `react-router-dom`, etc). See [#2156] for details.
 
 ### `newlines-between: [ignore|always|always-and-inside-groups|never]`
 
@@ -286,6 +283,78 @@ import fs from 'fs';
 import path from 'path';
 import index from './';
 import sibling from './foo';
+```
+
+### `named: true|false|{ enabled: true|false, import: true|false, export: true|false, require: true|false, cjsExports: true|false, types: mixed|types-first|types-last }`
+
+Enforce ordering of names within imports and exports:
+
+ - If set to `true`, named imports must be ordered according to the `alphabetize` options
+ - If set to `false`, named imports can occur in any order
+
+`enabled` enables the named ordering for all expressions by default.
+Use `import`, `export` and `require` and `cjsExports` to override the enablement for the following kind of expressions:
+
+ - `import`:
+
+   ```ts
+   import { Readline } from "readline";
+   ```
+
+ - `export`:
+
+   ```ts
+   export { Readline };
+   // and
+   export { Readline } from "readline";
+   ```
+
+ - `require`
+
+   ```ts
+   const { Readline } = require("readline");
+   ```
+
+ - `cjsExports`
+
+   ```ts
+   module.exports.Readline = Readline;
+   // and
+   module.exports = { Readline };
+   ```
+
+The `types` option allows you to specify the order of `import`s and `export`s of `type` specifiers.
+Following values are possible:
+
+ - `types-first`: forces `type` specifiers to occur first
+ - `types-last`: forces value specifiers to occur first
+ - `mixed`: sorts all specifiers in alphabetical order
+
+The default value is `false`.
+
+Example setting:
+
+```ts
+{
+  named: true,
+  alphabetize: {
+    order: 'asc'
+  }
+}
+```
+
+This will fail the rule check:
+
+```ts
+/* eslint import/order: ["error", {"named": true, "alphabetize": {"order": "asc"}}] */
+import { compose, apply } from 'xcompose';
+```
+
+While this will pass:
+
+```ts
+/* eslint import/order: ["error", {"named": true, "alphabetize": {"order": "asc"}}] */
+import { apply, compose } from 'xcompose';
 ```
 
 ### `alphabetize: {order: asc|desc|ignore, orderImportKind: asc|desc|ignore, caseInsensitive: true|false}`

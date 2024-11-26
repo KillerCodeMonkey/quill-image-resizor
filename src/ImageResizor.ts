@@ -27,6 +27,8 @@ export default class ImageResizor {
     onDestroy: () => void
   }[] = []
 
+  static QuillFind = window['Quill']?.find ?? (() => null)
+
   constructor(quill: Quill, options: ImageResizorOptions = {}) {
     this.initializeModules = this.initializeModules.bind(this)
     // save the quill reference and options
@@ -182,7 +184,8 @@ export default class ImageResizor {
   checkImageKeyUp = (evt: KeyboardEvent) => {
     if (this.img) {
       if (['Backspace', 'Delete'].includes(evt.code)) {
-        window['Quill']?.find(this.img).deleteAt(0)
+        const blot = ImageResizor.QuillFind(this.img)
+        if (blot) blot.deleteAt(0)
       }
       this.hide()
     }
@@ -191,7 +194,8 @@ export default class ImageResizor {
   checkImageInput = (evt: Event) => {
     if (this.img) {
       if (['deleteContentForward', 'deleteContentBackward'].includes((evt as InputEvent).inputType)) {
-        window['Quill']?.find(this.img).deleteAt(0)
+        const blot = ImageResizor.QuillFind(this.img)
+        if (blot) blot.deleteAt(0)
       }
       this.hide()
     }

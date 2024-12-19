@@ -45,7 +45,7 @@ Several different kinds of parameters are supported:
 | flag | `--verbose` | `boolean` | Value is `true` if the flag was specified on the command line, `false` otherwise. |
 | integer | `--max-retry 3` | `int` | The argument is an integer number |
 | string | `--title "Hello, world"` | `string` | The argument is a text string. |
-| choice | `--color red` | `string` | The argument is must be a string from a list of allowed choices (similar to an enum). |
+| choice | `--color red` | `string` | The argument must be a string from a list of allowed choices (similar to an enum). |
 | string list | `-o file1.txt -o file2.txt` | `string[]` | The argument is a text string. The parameter can be specified multiple times to build a list. |
 
 Other parameter kinds could be implemented if requested.  That said, keeping your CLI grammar simple and systematic makes it easier for users to learn.
@@ -74,13 +74,7 @@ export class PushAction extends CommandLineAction {
       summary: 'Pushes a widget to the service',
       documentation: 'Here we provide a longer description of how our action works.'
     });
-  }
 
-  protected onExecute(): Promise<void> { // abstract
-    return BusinessLogic.doTheWork(this._force.value, this._protocol.value || "(none)");
-  }
-
-  protected onDefineParameters(): void { // abstract
     this._force = this.defineFlagParameter({
       parameterLongName: '--force',
       parameterShortName: '-f',
@@ -94,6 +88,10 @@ export class PushAction extends CommandLineAction {
       environmentVariable: 'WIDGET_PROTOCOL',
       defaultValue: 'scp'
     });
+  }
+
+  protected async onExecute(): Promise<void> { // abstract
+    await BusinessLogic.doTheWork(this._force.value, this._protocol.value || "(none)");
   }
 }
 ```
@@ -111,9 +109,7 @@ export class WidgetCommandLine extends CommandLineParser {
     });
 
     this.addAction(new PushAction());
-  }
 
-  protected onDefineParameters(): void { // abstract
     this._verbose = this.defineFlagParameter({
       parameterLongName: '--verbose',
       parameterShortName: '-v',
@@ -121,9 +117,9 @@ export class WidgetCommandLine extends CommandLineParser {
     });
   }
 
-  protected onExecute(): Promise<void> { // override
+  protected async onExecute(): Promise<void> { // override
     BusinessLogic.configureLogger(this._verbose.value);
-    return super.onExecute();
+    await super.onExecute();
   }
 }
 ```
@@ -132,7 +128,7 @@ To invoke the parser, the application entry point will do something like this:
 
 ```typescript
 const commandLine: WidgetCommandLine = new WidgetCommandLine();
-commandLine.execute();
+commandLine.executeAsync();
 ```
 
 When we run `widget --verbose push --force`, the `PushAction.onExecute()` method will get invoked and then your business logic takes over.
@@ -226,7 +222,7 @@ action.defineChoiceParameter({
 });
 
 // Parse the command line
-commandLineParser.execute().then(() => {
+commandLineParser.executeAsync().then(() => {
   console.log('The action is: ' + commandLineParser.selectedAction!.actionName);
   console.log('The force flag is: ' + action.getFlagParameter('--force').value);
 });

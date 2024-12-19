@@ -17,7 +17,7 @@ MIT, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0
 
 ## Bundled dependencies
 
-### @angular/compiler@v19.0.0
+### @angular/compiler@v19.0.1
 
 > Angular - the compiler library
 
@@ -175,7 +175,7 @@ License: MIT
 
 ----------------------------------------
 
-### @glimmer/syntax@v0.93.0
+### @glimmer/syntax@v0.93.1
 
 License: MIT
 
@@ -201,7 +201,7 @@ License: MIT
 
 ----------------------------------------
 
-### @glimmer/util@v0.93.0
+### @glimmer/util@v0.93.1
 
 > Common utilities used in Glimmer
 
@@ -229,7 +229,7 @@ License: MIT
 
 ----------------------------------------
 
-### @glimmer/wire-format@v0.93.0
+### @glimmer/wire-format@v0.93.1
 
 License: MIT
 

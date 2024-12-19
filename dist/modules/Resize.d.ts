@@ -1,6 +1,5 @@
 import { default as ImageResizor } from '../ImageResizor';
 import { BaseModule } from './BaseModule';
-
 export declare class Resize extends BaseModule {
     boxes: HTMLDivElement[];
     dragBox: HTMLDivElement | null;

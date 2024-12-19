@@ -1,4 +1,3 @@
-import defaultsDeep from 'lodash/defaultsDeep'
 import DefaultOptions from './DefaultOptions'
 import { DisplaySize } from './modules/DisplaySize'
 import { Toolbar } from './modules/Toolbar'
@@ -27,7 +26,7 @@ export default class ImageResizor {
     onDestroy: () => void
   }[] = []
 
-  static QuillFind = window['Quill']?.find ?? (() => null)
+  static Quill = window['Quill'] ?? null
 
   constructor(quill: Quill, options: ImageResizorOptions = {}) {
     this.initializeModules = this.initializeModules.bind(this)
@@ -35,7 +34,15 @@ export default class ImageResizor {
     this.quill = quill
 
     // Apply options to default options
-    this.options = defaultsDeep({}, options, DefaultOptions)
+    this.options = {
+      modules: options.modules?.length ? options.modules : DefaultOptions.modules,
+      displayStyles: { ...DefaultOptions.displayStyles, ...options.displayStyles },
+      handleStyles: { ...DefaultOptions.handleStyles, ...options.handleStyles },
+      overlayStyles: { ...DefaultOptions.overlayStyles, ...options.overlayStyles },
+      toolbarButtonStyles: { ...DefaultOptions.toolbarButtonStyles, ...options.toolbarButtonStyles },
+      toolbarButtonSvgStyles: { ...DefaultOptions.toolbarButtonSvgStyles, ...options.toolbarButtonSvgStyles },
+      toolbarStyles: { ...DefaultOptions.toolbarStyles, ...options.toolbarStyles }
+    }
 
     // (see above about moduleClasses)
     if (options.modules?.length) {
@@ -184,7 +191,7 @@ export default class ImageResizor {
   checkImageKeyUp = (evt: KeyboardEvent) => {
     if (this.img) {
       if (['Backspace', 'Delete'].includes(evt.code)) {
-        const blot = ImageResizor.QuillFind(this.img)
+        const blot = ImageResizor.Quill?.find(this.img)
         if (blot) blot.deleteAt(0)
       }
       this.hide()
@@ -194,7 +201,7 @@ export default class ImageResizor {
   checkImageInput = (evt: Event) => {
     if (this.img) {
       if (['deleteContentForward', 'deleteContentBackward'].includes((evt as InputEvent).inputType)) {
-        const blot = ImageResizor.QuillFind(this.img)
+        const blot = ImageResizor.Quill?.find(this.img)
         if (blot) blot.deleteAt(0)
       }
       this.hide()

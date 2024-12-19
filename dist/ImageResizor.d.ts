@@ -1,6 +1,5 @@
 import { default as Quill } from 'quill';
 import { ImageResizorOptions } from './DefaultOptions';
-
 /**
  * Custom module for quilljs to allow user to resize <img> elements
  * (Works on Chrome, Edge, Safari and replaces Firefox's native resize behavior)
@@ -17,7 +16,7 @@ export default class ImageResizor {
         onUpdate: () => void;
         onDestroy: () => void;
     }[];
-    static QuillFind: any;
+    static Quill: any;
     constructor(quill: Quill, options?: ImageResizorOptions);
     initializeModules(): void;
     onUpdate: () => void;

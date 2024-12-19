@@ -1,6 +1,5 @@
 import { ImageResizorOptions } from '../DefaultOptions';
 import { default as ImageResizor } from '../ImageResizor';
-
 export declare abstract class BaseModule {
     overlay?: HTMLDivElement;
     img?: HTMLImageElement;

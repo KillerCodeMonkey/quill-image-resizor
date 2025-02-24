@@ -125,9 +125,10 @@ export default class ImageResizor {
     // prevent spurious text selection
     this.setUserSelect('none')
 
-    // listen for the image being deleted or moved
+    // listen for the image being deleted, moved or window resized
     document.addEventListener('keyup', this.checkImageKeyUp, true)
     this.quill.root.addEventListener('input', this.checkImageInput, true)
+    window.addEventListener('resize', this.repositionElements)
 
     // Create and add the overlay
     this.overlay = document.createElement('div')
@@ -135,7 +136,6 @@ export default class ImageResizor {
     Object.assign(this.overlay.style, this.options.overlayStyles)
 
     this.quill.root.parentNode!.appendChild(this.overlay)
-
     this.repositionElements()
   }
 
@@ -148,9 +148,10 @@ export default class ImageResizor {
     this.quill.root.parentNode!.removeChild(this.overlay)
     this.overlay = undefined
 
-    // stop listening for image deletion or movement
+    // stop listening for image deletion, movement or resize
     document.removeEventListener('keyup', this.checkImageKeyUp)
     this.quill.root.removeEventListener('input', this.checkImageInput)
+    window.removeEventListener('resize', this.repositionElements)
 
     // reset user-select
     this.setUserSelect('')

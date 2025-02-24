@@ -1,4 +1,4 @@
-const a = {
+const r = {
   modules: ["DisplaySize", "Toolbar", "Resize"],
   overlayStyles: {
     position: "absolute",
@@ -54,16 +54,16 @@ const a = {
   }
 };
 class y {
-  constructor(h) {
+  constructor(n) {
     this.onCreate = () => {
     }, this.onDestroy = () => {
     }, this.onUpdate = () => {
-    }, this.overlay = h.overlay, this.img = h.img, this.options = h.options, this.requestUpdate = h.onUpdate;
+    }, this.overlay = n.overlay, this.img = n.img, this.options = n.options, this.requestUpdate = n.onUpdate;
   }
 }
 class m extends y {
-  constructor(h) {
-    super(h), this.display = null, this.onCreate = () => {
+  constructor(n) {
+    super(n), this.display = null, this.onCreate = () => {
       var t;
       this.display = document.createElement("div"), Object.assign(this.display.style, this.options.displayStyles), (t = this.overlay) == null || t.appendChild(this.display);
     }, this.onDestroy = () => {
@@ -115,8 +115,8 @@ const f = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line>
 </svg>`;
 class x extends y {
-  constructor(h) {
-    if (super(h), this.floatStyle = null, this.marginStyle = null, this.displayStyle = null, this.alignments = [], this.onCreate = () => {
+  constructor(n) {
+    if (super(n), this.floatStyle = null, this.marginStyle = null, this.displayStyle = null, this.alignments = [], this.onCreate = () => {
       var t;
       this.toolbar = document.createElement("div"), Object.assign(this.toolbar.style, this.options.toolbarStyles), (t = this.overlay) == null || t.appendChild(this.toolbar), this._defineAlignments(), this._addToolbarButtons();
     }, this.onDestroy = () => {
@@ -165,8 +165,8 @@ class x extends y {
         var i;
         const o = document.createElement("span");
         t.push(o), o.innerHTML = e.icon, o.addEventListener("click", () => {
-          var l, n, c;
-          t.forEach((g) => g.style.filter = ""), e.isApplied() ? this.img && ((l = this.floatStyle) == null || l.remove(this.img), (n = this.marginStyle) == null || n.remove(this.img), (c = this.displayStyle) == null || c.remove(this.img)) : (this._selectButton(o), e.apply()), this.requestUpdate();
+          var l, h, c;
+          t.forEach((g) => g.style.filter = ""), e.isApplied() ? this.img && ((l = this.floatStyle) == null || l.remove(this.img), (h = this.marginStyle) == null || h.remove(this.img), (c = this.displayStyle) == null || c.remove(this.img)) : (this._selectButton(o), e.apply()), this.requestUpdate();
         }), Object.assign(o.style, this.options.toolbarButtonStyles), s > 0 && (o.style.borderLeftWidth = "0"), Object.assign(o.children[0].style, this.options.toolbarButtonSvgStyles), e.isApplied() && this._selectButton(o), (i = this.toolbar) == null || i.appendChild(o);
       });
     }, this._selectButton = (t) => {
@@ -178,8 +178,8 @@ class x extends y {
   }
 }
 class v extends y {
-  constructor(h) {
-    super(h), this.boxes = [], this.dragBox = null, this.dragStartX = 0, this.preDragWidth = 0, this.onCreate = () => {
+  constructor(n) {
+    super(n), this.boxes = [], this.dragBox = null, this.dragStartX = 0, this.preDragWidth = 0, this.onCreate = () => {
       this.boxes = [], this.addBox("nwse-resize"), this.addBox("nesw-resize"), this.addBox("nwse-resize"), this.addBox("nesw-resize"), this.positionBoxes();
     }, this.onDestroy = () => {
       this.setCursor("");
@@ -219,8 +219,8 @@ class v extends y {
     };
   }
 }
-const w = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msUserSelect"]), B = { DisplaySize: m, Toolbar: x, Resize: v }, r = class r {
-  constructor(h, t = {}) {
+const w = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msUserSelect"]), B = { DisplaySize: m, Toolbar: x, Resize: v }, a = class a {
+  constructor(n, t = {}) {
     var s, o;
     this.moduleClasses = [], this.modules = [], this.onUpdate = () => {
       this.repositionElements(), this.modules.forEach((i) => {
@@ -231,9 +231,9 @@ const w = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msU
         i.onDestroy();
       }), this.modules = [];
     }, this.handleClick = (i) => {
-      var n;
+      var h;
       const l = i.target;
-      if (((n = l == null ? void 0 : l.tagName) == null ? void 0 : n.toUpperCase()) === "IMG") {
+      if (((h = l == null ? void 0 : l.tagName) == null ? void 0 : h.toUpperCase()) === "IMG") {
         if (this.img === l)
           return;
         this.img && this.hide(), this.show(l);
@@ -241,16 +241,16 @@ const w = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msU
     }, this.show = (i) => {
       this.img = i, this.showOverlay(), this.initializeModules();
     }, this.showOverlay = () => {
-      this.overlay && this.hideOverlay(), this.quill.setSelection(null), this.setUserSelect("none"), document.addEventListener("keyup", this.checkImageKeyUp, !0), this.quill.root.addEventListener("input", this.checkImageInput, !0), this.overlay = document.createElement("div"), this.overlay.classList.add("ql-image-resizor"), Object.assign(this.overlay.style, this.options.overlayStyles), this.quill.root.parentNode.appendChild(this.overlay), this.repositionElements();
+      this.overlay && this.hideOverlay(), this.quill.setSelection(null), this.setUserSelect("none"), document.addEventListener("keyup", this.checkImageKeyUp, !0), this.quill.root.addEventListener("input", this.checkImageInput, !0), window.addEventListener("resize", this.repositionElements), this.overlay = document.createElement("div"), this.overlay.classList.add("ql-image-resizor"), Object.assign(this.overlay.style, this.options.overlayStyles), this.quill.root.parentNode.appendChild(this.overlay), this.repositionElements();
     }, this.hideOverlay = () => {
-      this.overlay && (this.quill.root.parentNode.removeChild(this.overlay), this.overlay = void 0, document.removeEventListener("keyup", this.checkImageKeyUp), this.quill.root.removeEventListener("input", this.checkImageInput), this.setUserSelect(""));
+      this.overlay && (this.quill.root.parentNode.removeChild(this.overlay), this.overlay = void 0, document.removeEventListener("keyup", this.checkImageKeyUp), this.quill.root.removeEventListener("input", this.checkImageInput), window.removeEventListener("resize", this.repositionElements), this.setUserSelect(""));
     }, this.repositionElements = () => {
       if (!this.overlay || !this.img)
         return;
-      const i = this.quill.root.parentNode, l = this.img.getBoundingClientRect(), n = i.getBoundingClientRect();
+      const i = this.quill.root.parentNode, l = this.img.getBoundingClientRect(), h = i.getBoundingClientRect();
       Object.assign(this.overlay.style, {
-        left: `${l.left - n.left - 1 + i.scrollLeft}px`,
-        top: `${l.top - n.top + i.scrollTop}px`,
+        left: `${l.left - h.left - 1 + i.scrollLeft}px`,
+        top: `${l.top - h.top + i.scrollTop}px`,
         width: `${l.width}px`,
         height: `${l.height}px`
       });
@@ -264,8 +264,8 @@ const w = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msU
       var l;
       if (this.img) {
         if (["Backspace", "Delete"].includes(i.code)) {
-          const n = (l = r.Quill) == null ? void 0 : l.find(this.img);
-          n && n.deleteAt(0);
+          const h = (l = a.Quill) == null ? void 0 : l.find(this.img);
+          h && h.deleteAt(0);
         }
         this.hide();
       }
@@ -273,32 +273,32 @@ const w = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msU
       var l;
       if (this.img) {
         if (["deleteContentForward", "deleteContentBackward"].includes(i.inputType)) {
-          const n = (l = r.Quill) == null ? void 0 : l.find(this.img);
-          n && n.deleteAt(0);
+          const h = (l = a.Quill) == null ? void 0 : l.find(this.img);
+          h && h.deleteAt(0);
         }
         this.hide();
       }
-    }, this.initializeModules = this.initializeModules.bind(this), this.quill = h, this.options = {
-      modules: (s = t.modules) != null && s.length ? t.modules : a.modules,
-      displayStyles: { ...a.displayStyles, ...t.displayStyles },
-      handleStyles: { ...a.handleStyles, ...t.handleStyles },
-      overlayStyles: { ...a.overlayStyles, ...t.overlayStyles },
-      toolbarButtonStyles: { ...a.toolbarButtonStyles, ...t.toolbarButtonStyles },
-      toolbarButtonSvgStyles: { ...a.toolbarButtonSvgStyles, ...t.toolbarButtonSvgStyles },
-      toolbarStyles: { ...a.toolbarStyles, ...t.toolbarStyles }
+    }, this.initializeModules = this.initializeModules.bind(this), this.quill = n, this.options = {
+      modules: (s = t.modules) != null && s.length ? t.modules : r.modules,
+      displayStyles: { ...r.displayStyles, ...t.displayStyles },
+      handleStyles: { ...r.handleStyles, ...t.handleStyles },
+      overlayStyles: { ...r.overlayStyles, ...t.overlayStyles },
+      toolbarButtonStyles: { ...r.toolbarButtonStyles, ...t.toolbarButtonStyles },
+      toolbarButtonSvgStyles: { ...r.toolbarButtonSvgStyles, ...t.toolbarButtonSvgStyles },
+      toolbarStyles: { ...r.toolbarStyles, ...t.toolbarStyles }
     }, (o = t.modules) != null && o.length && (this.moduleClasses = t.modules.slice()), this.quill.root.addEventListener("click", this.handleClick, !1);
     const e = this.quill.root.parentNode;
     e.style.position = e.style.position || "relative", this.modules = [], this.moduleClasses = this.options.modules || [];
   }
   initializeModules() {
-    var h;
-    this.removeModules(), this.modules = ((h = this.moduleClasses) == null ? void 0 : h.map((t) => new (B[t] || t)(this))) || [], this.modules.forEach((t) => {
+    var n;
+    this.removeModules(), this.modules = ((n = this.moduleClasses) == null ? void 0 : n.map((t) => new (B[t] || t)(this))) || [], this.modules.forEach((t) => {
       t.onCreate();
     }), this.onUpdate();
   }
 };
-r.Quill = window.Quill ?? null;
-let d = r;
+a.Quill = window.Quill ?? null;
+let d = a;
 var p;
 (p = window.Quill) == null || p.register("modules/imageResizor", d);
 export {

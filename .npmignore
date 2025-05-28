@@ -4,6 +4,7 @@ node_modules/
 src/
 .editorconfig
 .eslintrc.json
+eslint.config.mjs
 .gitignore
 .prettierrc.json
 demo.html

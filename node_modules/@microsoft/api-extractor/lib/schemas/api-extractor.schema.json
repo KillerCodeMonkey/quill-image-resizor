@@ -106,6 +106,17 @@
         "includeForgottenExports": {
           "description": "Whether \"forgotten exports\" should be included in the API report file. Forgotten exports are declarations flagged with `ae-forgotten-export` warnings. See https://api-extractor.com/pages/messages/ae-forgotten-export/ to learn more.",
           "type": "boolean"
+        },
+
+        "tagsToReport": {
+          "description": "Specifies a list of TSDoc tags that should be reported in the API report file for items whose documentation contains them.  This can be used to include standard TSDoc tags or custom ones.  Specified tag names must begin with \"@\".  By default, the following tags are reported: [@sealed, @virtual, @override, @eventProperty, @deprecated].  Tags will appear in the order they are specified in this list.  Note that an item's release tag will always reported; this behavior cannot be overridden.",
+          "type": "object",
+          "patternProperties": {
+            "^@[^\\s]*$": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "required": ["enabled"],
@@ -131,6 +142,14 @@
         "projectFolderUrl": {
           "description": "The base URL where the project's source code can be viewed on a website such as GitHub or Azure DevOps. This URL path corresponds to the `<projectFolder>` path on disk. This URL is concatenated with the file paths serialized to the doc model to produce URL file paths to individual API items. For example, if the `projectFolderUrl` is \"https://github.com/microsoft/rushstack/tree/main/apps/api-extractor\" and an API item's file path is \"api/ExtractorConfig.ts\", the full URL file path would be \"https://github.com/microsoft/rushstack/tree/main/apps/api-extractor/api/ExtractorConfig.js\". Can be omitted if you don't need source code links in your API documentation reference.",
           "type": "string"
+        },
+        "releaseTagsToTrim": {
+          "description": "Specifies a list of release tags that will be trimmed from the doc model. The default value is `[\"@internal\"]`.",
+          "type": "array",
+          "items": {
+            "enum": ["@internal", "@alpha", "@beta", "@public"]
+          },
+          "uniqueItems": true
         }
       },
       "required": ["enabled"],

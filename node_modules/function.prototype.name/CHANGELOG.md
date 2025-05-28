@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.8](https://github.com/es-shims/Function.prototype.name/compare/v1.1.7...v1.1.8) - 2024-12-19
+
+### Commits
+
+- [actions] split out node 10-20, and 20+ [`b5ea555`](https://github.com/es-shims/Function.prototype.name/commit/b5ea555b2a4db8eb531bccb4d6b2c916de9b8089)
+- [Refactor] use `call-bound` directly [`f6a6c64`](https://github.com/es-shims/Function.prototype.name/commit/f6a6c640f7f209c3fc1ea65c0eb31e622e2c9399)
+
 ## [v1.1.7](https://github.com/es-shims/Function.prototype.name/compare/v1.1.6...v1.1.7) - 2024-12-15
 
 ### Commits

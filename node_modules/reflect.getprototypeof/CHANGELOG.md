@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.10](https://github.com/es-shims/Reflect.getPrototypeOf/compare/v1.0.9...v1.0.10) - 2025-01-02
+
+### Commits
+
+- [Refactor] use `es-object-atoms` and `get-proto` directly [`2c55da0`](https://github.com/es-shims/Reflect.getPrototypeOf/commit/2c55da02fb56d9ce7a19e505f487dfb088256d24)
+- [Refactor] use `isObject` helper instead of `Type` [`e4c24a4`](https://github.com/es-shims/Reflect.getPrototypeOf/commit/e4c24a4cc1b9928da3eb1f0a032703235d32855e)
+- [Deps] update `es-abstract`, `get-intrinsic` [`54005fb`](https://github.com/es-shims/Reflect.getPrototypeOf/commit/54005fb9df56fb399e0c526600cb7799d23ef64f)
+- [Deps] update `es-abstract` [`e71b3b7`](https://github.com/es-shims/Reflect.getPrototypeOf/commit/e71b3b75847d4af71e42ff049bd2b4d55f0324fc)
+
 ## [v1.0.9](https://github.com/es-shims/Reflect.getPrototypeOf/compare/v1.0.8...v1.0.9) - 2024-12-18
 
 ### Commits

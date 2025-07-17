@@ -53,7 +53,7 @@ const r = {
     strokeWidth: "2"
   }
 };
-class y {
+class p {
   constructor(n) {
     this.onCreate = () => {
     }, this.onDestroy = () => {
@@ -61,7 +61,7 @@ class y {
     }, this.overlay = n.overlay, this.img = n.img, this.options = n.options, this.requestUpdate = n.onUpdate;
   }
 }
-class m extends y {
+class g extends p {
   constructor(n) {
     super(n), this.display = null, this.onCreate = () => {
       var t;
@@ -101,11 +101,11 @@ class m extends y {
     };
   }
 }
-const f = `<svg viewbox="0 0 18 18">
+const m = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="3" x2="15" y1="9" y2="9"></line>
   <line class="ql-stroke" x1="3" x2="13" y1="14" y2="14"></line>
   <line class="ql-stroke" x1="3" x2="9" y1="4" y2="4"></line>
-</svg>`, S = `<svg viewbox="0 0 18 18">
+</svg>`, y = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
   <line class="ql-stroke" x1="14" x2="4" y1="14" y2="14"></line>
   <line class="ql-stroke" x1="12" x2="6" y1="4" y2="4"></line>
@@ -114,78 +114,75 @@ const f = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line>
   <line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line>
 </svg>`;
-class x extends y {
+class x extends p {
   constructor(n) {
-    if (super(n), this.floatStyle = null, this.marginStyle = null, this.displayStyle = null, this.alignments = [], this.onCreate = () => {
+    super(n), this.alignments = [], this.onCreate = () => {
       var t;
       this.toolbar = document.createElement("div"), Object.assign(this.toolbar.style, this.options.toolbarStyles), (t = this.overlay) == null || t.appendChild(this.toolbar), this._defineAlignments(), this._addToolbarButtons();
     }, this.onDestroy = () => {
     }, this.onUpdate = () => {
-    }, this._stylesSet = () => this.displayStyle && this.floatStyle && this.marginStyle, this._defineAlignments = () => {
+    }, this._defineAlignments = () => {
       this.alignments = [
         {
-          icon: f,
+          icon: m,
           apply: () => {
-            var t, e, s;
-            this.img && ((t = this.displayStyle) == null || t.add(this.img, "inline"), (e = this.floatStyle) == null || e.add(this.img, "left"), (s = this.marginStyle) == null || s.add(this.img, "0 1em 1em 0"));
+            var t;
+            (t = this.img) != null && t.parentElement && (this.img.parentElement.classList.remove("ql-align-center"), this.img.parentElement.classList.remove("ql-align-right"));
           },
           isApplied: () => {
             var t;
-            return this.img ? ((t = this.floatStyle) == null ? void 0 : t.value(this.img)) === "left" : !1;
+            return (t = this.img) != null && t.parentElement ? !this.img.parentElement.classList.contains("ql-align-center") && !this.img.parentElement.classList.contains("ql-align-right") : !1;
           }
         },
         {
-          icon: S,
+          className: "ql-align-center",
+          icon: y,
           apply: () => {
-            var t, e, s;
-            this.img && ((t = this.displayStyle) == null || t.add(this.img, "block"), (e = this.floatStyle) == null || e.remove(this.img), (s = this.marginStyle) == null || s.add(this.img, "auto"));
+            var t;
+            (t = this.img) != null && t.parentElement && (this.img.parentElement.classList.add("ql-align-center"), this.img.parentElement.classList.remove("ql-align-right"));
           },
           isApplied: () => {
             var t;
-            return this.img ? ((t = this.marginStyle) == null ? void 0 : t.value(this.img)) === "auto" : !1;
+            return (t = this.img) != null && t.parentElement ? this.img.parentElement.classList.contains("ql-align-center") : !1;
           }
         },
         {
+          className: "ql-align-right",
           icon: b,
           apply: () => {
-            var t, e, s;
-            if (!this.img)
-              return !1;
-            (t = this.displayStyle) == null || t.add(this.img, "inline"), (e = this.floatStyle) == null || e.add(this.img, "right"), (s = this.marginStyle) == null || s.add(this.img, "0 0 1em 1em");
+            var t;
+            (t = this.img) != null && t.parentElement && (this.img.parentElement.classList.add("ql-align-right"), this.img.parentElement.classList.remove("ql-align-center"));
           },
           isApplied: () => {
             var t;
-            return this.img ? ((t = this.floatStyle) == null ? void 0 : t.value(this.img)) === "right" : !1;
+            return (t = this.img) != null && t.parentElement ? this.img.parentElement.classList.contains("ql-align-right") : !1;
           }
         }
       ];
     }, this._addToolbarButtons = () => {
       const t = [];
-      this.alignments.forEach((e, s) => {
-        var i;
-        const o = document.createElement("span");
-        t.push(o), o.innerHTML = e.icon, o.addEventListener("click", () => {
-          var l, h, c;
-          t.forEach((g) => g.style.filter = ""), e.isApplied() ? this.img && ((l = this.floatStyle) == null || l.remove(this.img), (h = this.marginStyle) == null || h.remove(this.img), (c = this.displayStyle) == null || c.remove(this.img)) : (this._selectButton(o), e.apply()), this.requestUpdate();
-        }), Object.assign(o.style, this.options.toolbarButtonStyles), s > 0 && (o.style.borderLeftWidth = "0"), Object.assign(o.children[0].style, this.options.toolbarButtonSvgStyles), e.isApplied() && this._selectButton(o), (i = this.toolbar) == null || i.appendChild(o);
+      this.alignments.forEach((e, o) => {
+        var s;
+        const l = document.createElement("span");
+        t.push(l), l.innerHTML = e.icon, l.addEventListener("click", () => {
+          var i;
+          t.forEach((h) => h.style.filter = ""), e.isApplied() ? (i = this.img) != null && i.parentElement && e.className && this.img.parentElement.classList.remove(e.className) : (this._selectButton(l), e.apply()), this.requestUpdate();
+        }), Object.assign(l.style, this.options.toolbarButtonStyles), o > 0 && (l.style.borderLeftWidth = "0"), Object.assign(l.children[0].style, this.options.toolbarButtonSvgStyles), e.isApplied() && this._selectButton(l), (s = this.toolbar) == null || s.appendChild(l);
       });
     }, this._selectButton = (t) => {
       t.style.filter = "invert(20%)";
-    }, d.Quill) {
-      const t = d.Quill.imports.parchment;
-      this.floatStyle = new t.StyleAttributor("float", "float"), this.marginStyle = new t.StyleAttributor("margin", "margin"), this.displayStyle = new t.StyleAttributor("display", "display");
-    }
+    };
   }
 }
-class v extends y {
+class f extends p {
   constructor(n) {
     super(n), this.boxes = [], this.dragBox = null, this.dragStartX = 0, this.preDragWidth = 0, this.onCreate = () => {
       this.boxes = [], this.addBox("nwse-resize"), this.addBox("nesw-resize"), this.addBox("nwse-resize"), this.addBox("nesw-resize"), this.positionBoxes();
     }, this.onDestroy = () => {
       this.setCursor("");
     }, this.positionBoxes = () => {
-      var s, o;
-      const t = `${-parseFloat(((s = this.options.handleStyles) == null ? void 0 : s.width.toString()) || "0") / 2}px`, e = `${-parseFloat(((o = this.options.handleStyles) == null ? void 0 : o.height.toString()) || "0") / 2}px`;
+      var o, l;
+      const t = `${-parseFloat(((o = this.options.handleStyles) == null ? void 0 : o.width.toString()) || "0") / 2}px`, e = `${-parseFloat(((l = this.options.handleStyles) == null ? void 0 : l.height.toString()) || "0") / 2}px`;
       [
         { left: t, top: e },
         // top left
@@ -195,16 +192,16 @@ class v extends y {
         // bottom right
         { left: t, bottom: e }
         // bottom left
-      ].forEach((i, l) => {
-        Object.assign(this.boxes[l].style, i);
+      ].forEach((s, i) => {
+        Object.assign(this.boxes[i].style, s);
       });
     }, this.addBox = (t) => {
-      var s, o, i;
+      var o, l, s;
       const e = document.createElement("div");
-      Object.assign(e.style, this.options.handleStyles), e.style.cursor = t, e.style.width = `${((s = this.options.handleStyles) == null ? void 0 : s.width) || 0}px`, e.style.height = `${((o = this.options.handleStyles) == null ? void 0 : o.height) || 0}px`, e.addEventListener("mousedown", this.handleMousedown, !1), (i = this.overlay) == null || i.appendChild(e), this.boxes.push(e);
+      Object.assign(e.style, this.options.handleStyles), e.style.cursor = t, e.style.width = `${((o = this.options.handleStyles) == null ? void 0 : o.width) || 0}px`, e.style.height = `${((l = this.options.handleStyles) == null ? void 0 : l.height) || 0}px`, e.addEventListener("mousedown", this.handleMousedown, !1), (s = this.overlay) == null || s.appendChild(e), this.boxes.push(e);
     }, this.handleMousedown = (t) => {
-      var e, s;
-      this.dragBox = t.target, this.dragStartX = t.clientX, this.preDragWidth = ((e = this.img) == null ? void 0 : e.width) || ((s = this.img) == null ? void 0 : s.naturalWidth) || 0, this.setCursor(this.dragBox.style.cursor), document.addEventListener("mousemove", this.handleDrag, !1), document.addEventListener("mouseup", this.handleMouseup, !1);
+      var e, o;
+      this.dragBox = t.target, this.dragStartX = t.clientX, this.preDragWidth = ((e = this.img) == null ? void 0 : e.width) || ((o = this.img) == null ? void 0 : o.naturalWidth) || 0, this.setCursor(this.dragBox.style.cursor), document.addEventListener("mousemove", this.handleDrag, !1), document.addEventListener("mouseup", this.handleMouseup, !1);
     }, this.handleMouseup = () => {
       this.setCursor(""), document.removeEventListener("mousemove", this.handleDrag), document.removeEventListener("mouseup", this.handleMouseup);
     }, this.handleDrag = (t) => {
@@ -213,33 +210,33 @@ class v extends y {
       const e = t.clientX - this.dragStartX;
       this.dragBox === this.boxes[0] || this.dragBox === this.boxes[3] ? this.img.width = Math.round(this.preDragWidth - e) : this.img.width = Math.round(this.preDragWidth + e), this.requestUpdate();
     }, this.setCursor = (t) => {
-      [document.body, this.img].forEach((s) => {
-        s && (s.style.cursor = t);
+      [document.body, this.img].forEach((o) => {
+        o && (o.style.cursor = t);
       });
     };
   }
 }
-const w = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msUserSelect"]), B = { DisplaySize: m, Toolbar: x, Resize: v }, a = class a {
+const v = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msUserSelect"]), S = { DisplaySize: g, Toolbar: x, Resize: f }, a = class a {
   constructor(n, t = {}) {
-    var s, o;
+    var o, l;
     this.moduleClasses = [], this.modules = [], this.onUpdate = () => {
-      this.repositionElements(), this.modules.forEach((i) => {
-        i.onUpdate();
+      this.repositionElements(), this.modules.forEach((s) => {
+        s.onUpdate();
       });
     }, this.removeModules = () => {
-      this.modules.forEach((i) => {
-        i.onDestroy();
+      this.modules.forEach((s) => {
+        s.onDestroy();
       }), this.modules = [];
-    }, this.handleClick = (i) => {
+    }, this.handleClick = (s) => {
       var h;
-      const l = i.target;
-      if (((h = l == null ? void 0 : l.tagName) == null ? void 0 : h.toUpperCase()) === "IMG") {
-        if (this.img === l)
+      const i = s.target;
+      if (((h = i == null ? void 0 : i.tagName) == null ? void 0 : h.toUpperCase()) === "IMG") {
+        if (this.img === i)
           return;
-        this.img && this.hide(), this.show(l);
+        this.img && this.hide(), this.show(i);
       } else this.img && this.hide();
-    }, this.show = (i) => {
-      this.img = i, this.showOverlay(), this.initializeModules();
+    }, this.show = (s) => {
+      this.img = s, this.showOverlay(), this.initializeModules();
     }, this.showOverlay = () => {
       this.overlay && this.hideOverlay(), this.quill.setSelection(null), this.setUserSelect("none"), document.addEventListener("keyup", this.checkImageKeyUp, !0), this.quill.root.addEventListener("input", this.checkImageInput, !0), window.addEventListener("resize", this.repositionElements), this.overlay = document.createElement("div"), this.overlay.classList.add("ql-image-resizor"), Object.assign(this.overlay.style, this.options.overlayStyles), this.quill.root.parentNode.appendChild(this.overlay), this.repositionElements();
     }, this.hideOverlay = () => {
@@ -247,60 +244,60 @@ const w = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msU
     }, this.repositionElements = () => {
       if (!this.overlay || !this.img)
         return;
-      const i = this.quill.root.parentNode, l = this.img.getBoundingClientRect(), h = i.getBoundingClientRect();
+      const s = this.quill.root.parentNode, i = this.img.getBoundingClientRect(), h = s.getBoundingClientRect();
       Object.assign(this.overlay.style, {
-        left: `${l.left - h.left - 1 + i.scrollLeft}px`,
-        top: `${l.top - h.top + i.scrollTop}px`,
-        width: `${l.width}px`,
-        height: `${l.height}px`
+        left: `${i.left - h.left - 1 + s.scrollLeft}px`,
+        top: `${i.top - h.top + s.scrollTop}px`,
+        width: `${i.width}px`,
+        height: `${i.height}px`
       });
     }, this.hide = () => {
       this.hideOverlay(), this.removeModules(), this.img = void 0;
-    }, this.setUserSelect = (i) => {
-      w.forEach((l) => {
-        this.quill.root.style[l] = i, document.documentElement.style[l] = i;
+    }, this.setUserSelect = (s) => {
+      v.forEach((i) => {
+        this.quill.root.style[i] = s, document.documentElement.style[i] = s;
       });
-    }, this.checkImageKeyUp = (i) => {
-      var l;
+    }, this.checkImageKeyUp = (s) => {
+      var i;
       if (this.img) {
-        if (["Backspace", "Delete"].includes(i.code)) {
-          const h = (l = a.Quill) == null ? void 0 : l.find(this.img);
+        if (["Backspace", "Delete"].includes(s.code)) {
+          const h = (i = a.Quill) == null ? void 0 : i.find(this.img);
           h && h.deleteAt(0);
         }
         this.hide();
       }
-    }, this.checkImageInput = (i) => {
-      var l;
+    }, this.checkImageInput = (s) => {
+      var i;
       if (this.img) {
-        if (["deleteContentForward", "deleteContentBackward"].includes(i.inputType)) {
-          const h = (l = a.Quill) == null ? void 0 : l.find(this.img);
+        if (["deleteContentForward", "deleteContentBackward"].includes(s.inputType)) {
+          const h = (i = a.Quill) == null ? void 0 : i.find(this.img);
           h && h.deleteAt(0);
         }
         this.hide();
       }
     }, this.initializeModules = this.initializeModules.bind(this), this.quill = n, this.options = {
-      modules: (s = t.modules) != null && s.length ? t.modules : r.modules,
+      modules: (o = t.modules) != null && o.length ? t.modules : r.modules,
       displayStyles: { ...r.displayStyles, ...t.displayStyles },
       handleStyles: { ...r.handleStyles, ...t.handleStyles },
       overlayStyles: { ...r.overlayStyles, ...t.overlayStyles },
       toolbarButtonStyles: { ...r.toolbarButtonStyles, ...t.toolbarButtonStyles },
       toolbarButtonSvgStyles: { ...r.toolbarButtonSvgStyles, ...t.toolbarButtonSvgStyles },
       toolbarStyles: { ...r.toolbarStyles, ...t.toolbarStyles }
-    }, (o = t.modules) != null && o.length && (this.moduleClasses = t.modules.slice()), this.quill.root.addEventListener("click", this.handleClick, !1);
+    }, (l = t.modules) != null && l.length && (this.moduleClasses = t.modules.slice()), this.quill.root.addEventListener("click", this.handleClick, !1);
     const e = this.quill.root.parentNode;
     e.style.position = e.style.position || "relative", this.modules = [], this.moduleClasses = this.options.modules || [];
   }
   initializeModules() {
     var n;
-    this.removeModules(), this.modules = ((n = this.moduleClasses) == null ? void 0 : n.map((t) => new (B[t] || t)(this))) || [], this.modules.forEach((t) => {
+    this.removeModules(), this.modules = ((n = this.moduleClasses) == null ? void 0 : n.map((t) => new (S[t] || t)(this))) || [], this.modules.forEach((t) => {
       t.onCreate();
     }), this.onUpdate();
   }
 };
 a.Quill = window.Quill ?? null;
-let d = a;
-var p;
-(p = window.Quill) == null || p.register("modules/imageResizor", d);
+let c = a;
+var u;
+(u = window.Quill) == null || u.register("modules/imageResizor", c);
 export {
-  d as default
+  c as default
 };

@@ -3,14 +3,11 @@ import IconAlignCenter from 'quill/assets/icons/align-center.svg?raw'
 import IconAlignRight from 'quill/assets/icons/align-right.svg?raw'
 import { BaseModule } from './BaseModule'
 import ImageResizor from '../ImageResizor'
-import type { Parchment } from 'quill'
 
 export class Toolbar extends BaseModule {
-  floatStyle: Parchment.StyleAttributor | null = null
-  marginStyle: Parchment.StyleAttributor | null = null
-  displayStyle: Parchment.StyleAttributor | null = null
   toolbar?: HTMLDivElement
   alignments: {
+    className?: string
     icon: string
     apply: () => void
     isApplied: () => boolean
@@ -18,12 +15,6 @@ export class Toolbar extends BaseModule {
 
   constructor(resizer: ImageResizor) {
     super(resizer)
-    if (ImageResizor.Quill) {
-      const parchment = ImageResizor.Quill.imports.parchment
-      this.floatStyle = new parchment.StyleAttributor('float', 'float')
-      this.marginStyle = new parchment.StyleAttributor('margin', 'margin')
-      this.displayStyle = new parchment.StyleAttributor('display', 'display')
-    }
   }
 
   onCreate = () => {
@@ -43,59 +34,59 @@ export class Toolbar extends BaseModule {
   // Nothing to update on drag because we are are positioned relative to the overlay
   onUpdate = () => {}
 
-  _stylesSet = () => this.displayStyle && this.floatStyle && this.marginStyle
-
   _defineAlignments = () => {
     this.alignments = [
       {
         icon: IconAlignLeft,
         apply: () => {
-          if (!this.img) {
+          if (!this.img?.parentElement) {
             return
           }
-          this.displayStyle?.add(this.img, 'inline')
-          this.floatStyle?.add(this.img, 'left')
-          this.marginStyle?.add(this.img, '0 1em 1em 0')
+          this.img.parentElement.classList.remove('ql-align-center')
+          this.img.parentElement.classList.remove('ql-align-right')
         },
         isApplied: () => {
-          if (!this.img) {
+          if (!this.img?.parentElement) {
             return false
           }
-          return this.floatStyle?.value(this.img) === 'left'
+          return (
+            !this.img.parentElement.classList.contains('ql-align-center') &&
+            !this.img.parentElement.classList.contains('ql-align-right')
+          )
         }
       },
       {
+        className: 'ql-align-center',
         icon: IconAlignCenter,
         apply: () => {
-          if (!this.img) {
+          if (!this.img?.parentElement) {
             return
           }
-          this.displayStyle?.add(this.img, 'block')
-          this.floatStyle?.remove(this.img)
-          this.marginStyle?.add(this.img, 'auto')
+          this.img.parentElement.classList.add('ql-align-center')
+          this.img.parentElement.classList.remove('ql-align-right')
         },
         isApplied: () => {
-          if (!this.img) {
+          if (!this.img?.parentElement) {
             return false
           }
-          return this.marginStyle?.value(this.img) === 'auto'
+          return this.img.parentElement.classList.contains('ql-align-center')
         }
       },
       {
+        className: 'ql-align-right',
         icon: IconAlignRight,
         apply: () => {
-          if (!this.img) {
-            return false
+          if (!this.img?.parentElement) {
+            return
           }
-          this.displayStyle?.add(this.img, 'inline')
-          this.floatStyle?.add(this.img, 'right')
-          this.marginStyle?.add(this.img, '0 0 1em 1em')
+          this.img.parentElement.classList.add('ql-align-right')
+          this.img.parentElement.classList.remove('ql-align-center')
         },
         isApplied: () => {
-          if (!this.img) {
+          if (!this.img?.parentElement) {
             return false
           }
-          return this.floatStyle?.value(this.img) === 'right'
+          return this.img.parentElement.classList.contains('ql-align-right')
         }
       }
     ]
@@ -112,10 +103,8 @@ export class Toolbar extends BaseModule {
         buttons.forEach((button) => (button.style.filter = ''))
         if (alignment.isApplied()) {
           // If applied, unapply
-          if (this.img) {
-            this.floatStyle?.remove(this.img)
-            this.marginStyle?.remove(this.img)
-            this.displayStyle?.remove(this.img)
+          if (this.img?.parentElement && alignment.className) {
+            this.img.parentElement.classList.remove(alignment.className)
           }
         } else {
           // otherwise, select button and apply

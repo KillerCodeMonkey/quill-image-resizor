@@ -61,11 +61,10 @@ class T {
     }, this.overlay = t.overlay, this.img = t.img, this.options = t.options, this.requestUpdate = t.onUpdate;
   }
 }
-class Q extends T {
+class F extends T {
   constructor(t) {
     super(t), this.display = null, this.onCreate = () => {
-      var e;
-      this.display = document.createElement("div"), Object.assign(this.display.style, this.options.displayStyles), (e = this.overlay) == null || e.appendChild(this.display);
+      this.display = document.createElement("div"), Object.assign(this.display.style, this.options.displayStyles), this.overlay?.appendChild(this.display);
     }, this.onDestroy = () => {
     }, this.onUpdate = () => {
       if (!this.display || !this.img)
@@ -92,97 +91,78 @@ class Q extends T {
           left: "auto"
         });
       }
-    }, this.getCurrentSize = () => {
-      var e;
-      return [
-        ((e = this.img) == null ? void 0 : e.width) || 0,
-        this.img ? Math.round(this.img.width / this.img.naturalWidth * this.img.naturalHeight) : 0
-      ];
-    };
+    }, this.getCurrentSize = () => [
+      this.img?.width || 0,
+      this.img ? Math.round(this.img.width / this.img.naturalWidth * this.img.naturalHeight) : 0
+    ];
   }
 }
-const X = `<svg viewbox="0 0 18 18">
+const Q = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="3" x2="15" y1="9" y2="9"></line>
   <line class="ql-stroke" x1="3" x2="13" y1="14" y2="14"></line>
   <line class="ql-stroke" x1="3" x2="9" y1="4" y2="4"></line>
-</svg>`, Y = `<svg viewbox="0 0 18 18">
+</svg>`, X = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
   <line class="ql-stroke" x1="14" x2="4" y1="14" y2="14"></line>
   <line class="ql-stroke" x1="12" x2="6" y1="4" y2="4"></line>
-</svg>`, V = `<svg viewbox="0 0 18 18">
+</svg>`, Y = `<svg viewbox="0 0 18 18">
   <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
   <line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line>
   <line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line>
 </svg>`;
-class H extends T {
+class V extends T {
   constructor(t) {
     super(t), this.alignments = [], this.onCreate = () => {
-      var e;
-      this.toolbar = document.createElement("div"), Object.assign(this.toolbar.style, this.options.toolbarStyles), (e = this.overlay) == null || e.appendChild(this.toolbar), this._defineAlignments(), this._addToolbarButtons();
+      this.toolbar = document.createElement("div"), Object.assign(this.toolbar.style, this.options.toolbarStyles), this.overlay?.appendChild(this.toolbar), this._defineAlignments(), this._addToolbarButtons();
     }, this.onDestroy = () => {
     }, this.onUpdate = () => {
-    }, this._stylesSet = () => d.displayStyle && d.floatStyle && d.marginStyle, this._defineAlignments = () => {
+    }, this._stylesSet = () => c.displayStyle && c.floatStyle && c.marginStyle, this._defineAlignments = () => {
       this.alignments = [
+        {
+          icon: Q,
+          apply: () => {
+            this.img && (c.displayStyle?.add(this.img, "inline"), c.floatStyle?.add(this.img, "left"), c.marginStyle?.add(this.img, "0 1em 1em 0"));
+          },
+          isApplied: () => this.img ? c.floatStyle?.value(this.img) === "left" : !1
+        },
         {
           icon: X,
           apply: () => {
-            var e, s, i;
-            this.img && ((e = d.displayStyle) == null || e.add(this.img, "inline"), (s = d.floatStyle) == null || s.add(this.img, "left"), (i = d.marginStyle) == null || i.add(this.img, "0 1em 1em 0"));
+            this.img && (c.floatStyle?.remove(this.img), c.displayStyle?.add(this.img, "block"), c.marginStyle?.add(this.img, "auto"));
           },
-          isApplied: () => {
-            var e;
-            return this.img ? ((e = d.floatStyle) == null ? void 0 : e.value(this.img)) === "left" : !1;
-          }
+          isApplied: () => this.img ? c.marginStyle?.value(this.img) === "auto" : !1
         },
         {
           icon: Y,
           apply: () => {
-            var e, s, i;
-            this.img && ((e = d.floatStyle) == null || e.remove(this.img), (s = d.displayStyle) == null || s.add(this.img, "block"), (i = d.marginStyle) == null || i.add(this.img, "auto"));
-          },
-          isApplied: () => {
-            var e;
-            return this.img ? ((e = d.marginStyle) == null ? void 0 : e.value(this.img)) === "auto" : !1;
-          }
-        },
-        {
-          icon: V,
-          apply: () => {
-            var e, s, i;
             if (!this.img)
               return !1;
-            (e = d.displayStyle) == null || e.add(this.img, "inline"), (s = d.floatStyle) == null || s.add(this.img, "right"), (i = d.marginStyle) == null || i.add(this.img, "0 0em 1em 1em");
+            c.displayStyle?.add(this.img, "inline"), c.floatStyle?.add(this.img, "right"), c.marginStyle?.add(this.img, "0 0em 1em 1em");
           },
-          isApplied: () => {
-            var e;
-            return this.img ? ((e = d.floatStyle) == null ? void 0 : e.value(this.img)) === "right" : !1;
-          }
+          isApplied: () => this.img ? c.floatStyle?.value(this.img) === "right" : !1
         }
       ];
     }, this._addToolbarButtons = () => {
       const e = [];
       this.alignments.forEach((s, i) => {
-        var o;
         const r = document.createElement("span");
         e.push(r), r.innerHTML = s.icon, r.addEventListener("click", () => {
-          var a, n, c;
-          e.forEach((f) => f.style.filter = ""), s.isApplied() ? this.img && ((a = d.floatStyle) == null || a.remove(this.img), (n = d.marginStyle) == null || n.remove(this.img), (c = d.displayStyle) == null || c.remove(this.img)) : (this._selectButton(r), s.apply()), this.requestUpdate();
-        }), Object.assign(r.style, this.options.toolbarButtonStyles), i > 0 && (r.style.borderLeftWidth = "0"), Object.assign(r.children[0].style, this.options.toolbarButtonSvgStyles), s.isApplied() && this._selectButton(r), (o = this.toolbar) == null || o.appendChild(r);
+          e.forEach((o) => o.style.filter = ""), s.isApplied() ? this.img && (c.floatStyle?.remove(this.img), c.marginStyle?.remove(this.img), c.displayStyle?.remove(this.img)) : (this._selectButton(r), s.apply()), this.requestUpdate();
+        }), Object.assign(r.style, this.options.toolbarButtonStyles), i > 0 && (r.style.borderLeftWidth = "0"), Object.assign(r.children[0].style, this.options.toolbarButtonSvgStyles), s.isApplied() && this._selectButton(r), this.toolbar?.appendChild(r);
       });
     }, this._selectButton = (e) => {
       e.style.filter = "invert(20%)";
     };
   }
 }
-class G extends T {
+class H extends T {
   constructor(t) {
     super(t), this.boxes = [], this.dragBox = null, this.dragStartX = 0, this.preDragWidth = 0, this.onCreate = () => {
       this.boxes = [], this.addBox("nwse-resize"), this.addBox("nesw-resize"), this.addBox("nwse-resize"), this.addBox("nesw-resize"), this.positionBoxes();
     }, this.onDestroy = () => {
       this.setCursor("");
     }, this.positionBoxes = () => {
-      var i, r;
-      const e = `${-parseFloat(((i = this.options.handleStyles) == null ? void 0 : i.width.toString()) || "0") / 2}px`, s = `${-parseFloat(((r = this.options.handleStyles) == null ? void 0 : r.height.toString()) || "0") / 2}px`;
+      const e = `${-parseFloat(this.options.handleStyles?.width.toString() || "0") / 2}px`, s = `${-parseFloat(this.options.handleStyles?.height.toString() || "0") / 2}px`;
       [
         { left: e, top: s },
         // top left
@@ -192,16 +172,14 @@ class G extends T {
         // bottom right
         { left: e, bottom: s }
         // bottom left
-      ].forEach((o, a) => {
-        Object.assign(this.boxes[a].style, o);
+      ].forEach((i, r) => {
+        Object.assign(this.boxes[r].style, i);
       });
     }, this.addBox = (e) => {
-      var i, r, o;
       const s = document.createElement("div");
-      Object.assign(s.style, this.options.handleStyles), s.style.cursor = e, s.style.width = `${((i = this.options.handleStyles) == null ? void 0 : i.width) || 0}px`, s.style.height = `${((r = this.options.handleStyles) == null ? void 0 : r.height) || 0}px`, s.addEventListener("mousedown", this.handleMousedown, !1), (o = this.overlay) == null || o.appendChild(s), this.boxes.push(s);
+      Object.assign(s.style, this.options.handleStyles), s.style.cursor = e, s.style.width = `${this.options.handleStyles?.width || 0}px`, s.style.height = `${this.options.handleStyles?.height || 0}px`, s.addEventListener("mousedown", this.handleMousedown, !1), this.overlay?.appendChild(s), this.boxes.push(s);
     }, this.handleMousedown = (e) => {
-      var s, i;
-      this.dragBox = e.target, this.dragStartX = e.clientX, this.preDragWidth = ((s = this.img) == null ? void 0 : s.width) || ((i = this.img) == null ? void 0 : i.naturalWidth) || 0, this.setCursor(this.dragBox.style.cursor), document.addEventListener("mousemove", this.handleDrag, !1), document.addEventListener("mouseup", this.handleMouseup, !1);
+      this.dragBox = e.target, this.dragStartX = e.clientX, this.preDragWidth = this.img?.width || this.img?.naturalWidth || 0, this.setCursor(this.dragBox.style.cursor), document.addEventListener("mousemove", this.handleDrag, !1), document.addEventListener("mouseup", this.handleMouseup, !1);
     }, this.handleMouseup = () => {
       this.setCursor(""), document.removeEventListener("mousemove", this.handleDrag), document.removeEventListener("mouseup", this.handleMouseup);
     }, this.handleDrag = (e) => {
@@ -216,15 +194,15 @@ class G extends T {
     };
   }
 }
-var h = /* @__PURE__ */ ((l) => (l[l.TYPE = 3] = "TYPE", l[l.LEVEL = 12] = "LEVEL", l[l.ATTRIBUTE = 13] = "ATTRIBUTE", l[l.BLOT = 14] = "BLOT", l[l.INLINE = 7] = "INLINE", l[l.BLOCK = 11] = "BLOCK", l[l.BLOCK_BLOT = 10] = "BLOCK_BLOT", l[l.INLINE_BLOT = 6] = "INLINE_BLOT", l[l.BLOCK_ATTRIBUTE = 9] = "BLOCK_ATTRIBUTE", l[l.INLINE_ATTRIBUTE = 5] = "INLINE_ATTRIBUTE", l[l.ANY = 15] = "ANY", l))(h || {});
-class A {
+var a = /* @__PURE__ */ ((l) => (l[l.TYPE = 3] = "TYPE", l[l.LEVEL = 12] = "LEVEL", l[l.ATTRIBUTE = 13] = "ATTRIBUTE", l[l.BLOT = 14] = "BLOT", l[l.INLINE = 7] = "INLINE", l[l.BLOCK = 11] = "BLOCK", l[l.BLOCK_BLOT = 10] = "BLOCK_BLOT", l[l.INLINE_BLOT = 6] = "INLINE_BLOT", l[l.BLOCK_ATTRIBUTE = 9] = "BLOCK_ATTRIBUTE", l[l.INLINE_ATTRIBUTE = 5] = "INLINE_ATTRIBUTE", l[l.ANY = 15] = "ANY", l))(a || {});
+class x {
   constructor(t, e, s = {}) {
     this.attrName = t, this.keyName = e;
-    const i = h.TYPE & h.ATTRIBUTE;
+    const i = a.TYPE & a.ATTRIBUTE;
     this.scope = s.scope != null ? (
       // Ignore type bits, force attribute bit
-      s.scope & h.LEVEL | i
-    ) : h.ATTRIBUTE, s.whitelist != null && (this.whitelist = s.whitelist);
+      s.scope & a.LEVEL | i
+    ) : a.ATTRIBUTE, s.whitelist != null && (this.whitelist = s.whitelist);
   }
   static keys(t) {
     return Array.from(t.attributes).map((e) => e.name);
@@ -243,12 +221,12 @@ class A {
     return this.canAdd(t, e) && e ? e : "";
   }
 }
-class b extends Error {
+class N extends Error {
   constructor(t) {
     t = "[Parchment] " + t, super(t), this.message = t, this.name = this.constructor.name;
   }
 }
-const q = class C {
+const z = class C {
   constructor() {
     this.attributes = {}, this.classes = {}, this.tags = {}, this.types = {};
   }
@@ -271,27 +249,27 @@ const q = class C {
   create(t, e, s) {
     const i = this.query(e);
     if (i == null)
-      throw new b(`Unable to create ${e} blot`);
+      throw new N(`Unable to create ${e} blot`);
     const r = i, o = (
       // @ts-expect-error Fix me later
       e instanceof Node || e.nodeType === Node.TEXT_NODE ? e : r.create(s)
-    ), a = new r(t, o, s);
-    return C.blots.set(a.domNode, a), a;
+    ), n = new r(t, o, s);
+    return C.blots.set(n.domNode, n), n;
   }
   find(t, e = !1) {
     return C.find(t, e);
   }
-  query(t, e = h.ANY) {
+  query(t, e = a.ANY) {
     let s;
-    return typeof t == "string" ? s = this.types[t] || this.attributes[t] : t instanceof Text || t.nodeType === Node.TEXT_NODE ? s = this.types.text : typeof t == "number" ? t & h.LEVEL & h.BLOCK ? s = this.types.block : t & h.LEVEL & h.INLINE && (s = this.types.inline) : t instanceof Element && ((t.getAttribute("class") || "").split(/\s+/).some((i) => (s = this.classes[i], !!s)), s = s || this.tags[t.tagName]), s == null ? null : "scope" in s && e & h.LEVEL & s.scope && e & h.TYPE & s.scope ? s : null;
+    return typeof t == "string" ? s = this.types[t] || this.attributes[t] : t instanceof Text || t.nodeType === Node.TEXT_NODE ? s = this.types.text : typeof t == "number" ? t & a.LEVEL & a.BLOCK ? s = this.types.block : t & a.LEVEL & a.INLINE && (s = this.types.inline) : t instanceof Element && ((t.getAttribute("class") || "").split(/\s+/).some((i) => (s = this.classes[i], !!s)), s = s || this.tags[t.tagName]), s == null ? null : "scope" in s && e & a.LEVEL & s.scope && e & a.TYPE & s.scope ? s : null;
   }
   register(...t) {
     return t.map((e) => {
       const s = "blotName" in e, i = "attrName" in e;
       if (!s && !i)
-        throw new b("Invalid definition");
+        throw new N("Invalid definition");
       if (s && e.blotName === "abstract")
-        throw new b("Cannot register abstract class");
+        throw new N("Cannot register abstract class");
       const r = s ? e.blotName : i ? e.attrName : void 0;
       return this.types[r] = e, i ? typeof e.keyName == "string" && (this.attributes[e.keyName] = e) : s && (e.className && (this.classes[e.className] = e), e.tagName && (Array.isArray(e.tagName) ? e.tagName = e.tagName.map((o) => o.toUpperCase()) : e.tagName = e.tagName.toUpperCase(), (Array.isArray(e.tagName) ? e.tagName : [e.tagName]).forEach((o) => {
         (this.tags[o] == null || e.className == null) && (this.tags[o] = e);
@@ -299,12 +277,12 @@ const q = class C {
     });
   }
 };
-q.blots = /* @__PURE__ */ new WeakMap();
-let L = q;
+z.blots = /* @__PURE__ */ new WeakMap();
+let L = z;
 function k(l, t) {
   return (l.getAttribute("class") || "").split(/\s+/).filter((e) => e.indexOf(`${t}-`) === 0);
 }
-class Z extends A {
+class G extends x {
   static keys(t) {
     return (t.getAttribute("class") || "").split(/\s+/).map((e) => e.split("-").slice(0, -1).join("-"));
   }
@@ -321,12 +299,12 @@ class Z extends A {
     return this.canAdd(t, e) ? e : "";
   }
 }
-const J = Z;
+const Z = G;
 function w(l) {
   const t = l.split("-"), e = t.slice(1).map((s) => s[0].toUpperCase() + s.slice(1)).join("");
   return t[0] + e;
 }
-class tt extends A {
+class J extends x {
   static keys(t) {
     return (t.getAttribute("style") || "").split(";").map((e) => e.split(":")[0].trim());
   }
@@ -341,8 +319,8 @@ class tt extends A {
     return this.canAdd(t, e) ? e : "";
   }
 }
-const et = tt;
-class st {
+const tt = J;
+class et {
   constructor(t) {
     this.attributes = {}, this.domNode = t, this.build();
   }
@@ -354,10 +332,10 @@ class st {
     const t = L.find(this.domNode);
     if (t == null)
       return;
-    const e = A.keys(this.domNode), s = J.keys(this.domNode), i = et.keys(this.domNode);
+    const e = x.keys(this.domNode), s = Z.keys(this.domNode), i = tt.keys(this.domNode);
     e.concat(s).concat(i).forEach((r) => {
-      const o = t.scroll.query(r, h.ATTRIBUTE);
-      o instanceof A && (this.attributes[o.attrName] = o);
+      const o = t.scroll.query(r, a.ATTRIBUTE);
+      o instanceof x && (this.attributes[o.attrName] = o);
     });
   }
   copy(t) {
@@ -378,13 +356,13 @@ class st {
     );
   }
 }
-const D = st, R = class {
+const q = et, D = class {
   constructor(t, e) {
     this.scroll = t, this.domNode = e, L.blots.set(e, this), this.prev = null, this.next = null;
   }
   static create(t) {
     if (this.tagName == null)
-      throw new b("Blot definition missing tagName");
+      throw new N("Blot definition missing tagName");
     let e, s;
     return Array.isArray(this.tagName) ? (typeof t == "string" ? (s = t.toUpperCase(), parseInt(s, 10).toString() === s && (s = parseInt(s, 10))) : typeof t == "number" && (s = t), typeof s == "number" ? e = document.createElement(this.tagName[s - 1]) : s && this.tagName.indexOf(s) > -1 ? e = document.createElement(s) : e = document.createElement(this.tagName[0])) : e = document.createElement(this.tagName), this.className && e.classList.add(this.className), e;
   }
@@ -406,9 +384,9 @@ const D = st, R = class {
   }
   formatAt(t, e, s, i) {
     const r = this.isolate(t, e);
-    if (this.scroll.query(s, h.BLOT) != null && i)
+    if (this.scroll.query(s, a.BLOT) != null && i)
       r.wrap(s, i);
-    else if (this.scroll.query(s, h.ATTRIBUTE) != null) {
+    else if (this.scroll.query(s, a.ATTRIBUTE) != null) {
       const o = this.scroll.create(this.statics.scope);
       r.wrap(o), o.format(s, i);
     }
@@ -447,13 +425,13 @@ const D = st, R = class {
   wrap(t, e) {
     const s = typeof t == "string" ? this.scroll.create(t, e) : t;
     if (this.parent != null && this.parent.insertBefore(s, this.next || void 0), typeof s.appendChild != "function")
-      throw new b(`Cannot wrap ${t}`);
+      throw new N(`Cannot wrap ${t}`);
     return s.appendChild(this), s;
   }
 };
-R.blotName = "abstract";
-let $ = R;
-const W = class extends $ {
+D.blotName = "abstract";
+let R = D;
+const $ = class extends R {
   /**
    * Returns the value represented by domNode if it is this Blot's type
    * No checking that domNode can represent this Blot type is required so
@@ -488,10 +466,10 @@ const W = class extends $ {
     };
   }
 };
-W.scope = h.INLINE_BLOT;
-let it = W;
-const E = it;
-class rt {
+$.scope = a.INLINE_BLOT;
+let st = $;
+const E = st;
+class it {
   constructor() {
     this.head = null, this.tail = null, this.length = 0;
   }
@@ -571,15 +549,15 @@ class rt {
       return;
     const [i, r] = this.find(t);
     let o = t - r;
-    const a = this.iterator(i);
-    let n = a();
-    for (; n && o < t + e; ) {
-      const c = n.length();
+    const n = this.iterator(i);
+    let h = n();
+    for (; h && o < t + e; ) {
+      const u = h.length();
       t > o ? s(
-        n,
+        h,
         t - o,
-        Math.min(e, o + c - t)
-      ) : s(n, 0, Math.min(c, t + e - o)), o += c, n = a();
+        Math.min(e, o + u - t)
+      ) : s(h, 0, Math.min(u, t + e - o)), o += u, h = n();
     }
   }
   map(t) {
@@ -600,13 +578,13 @@ function I(l, t) {
   try {
     return t.create(l);
   } catch {
-    const s = t.create(h.INLINE);
+    const s = t.create(a.INLINE);
     return Array.from(l.childNodes).forEach((i) => {
       s.domNode.appendChild(i);
     }), l.parentNode && l.parentNode.replaceChild(s.domNode, l), s.attach(), s;
   }
 }
-const j = class m extends $ {
+const W = class m extends R {
   constructor(t, e) {
     super(t, e), this.uiNode = null, this.build();
   }
@@ -625,12 +603,12 @@ const j = class m extends $ {
    * Called during construction, should fill its own children LinkedList.
    */
   build() {
-    this.children = new rt(), Array.from(this.domNode.childNodes).filter((t) => t !== this.uiNode).reverse().forEach((t) => {
+    this.children = new it(), Array.from(this.domNode.childNodes).filter((t) => t !== this.uiNode).reverse().forEach((t) => {
       try {
         const e = I(t, this.scroll);
         this.insertBefore(e, this.children.head || void 0);
       } catch (e) {
-        if (e instanceof b)
+        if (e instanceof N)
           return;
         throw e;
       }
@@ -652,10 +630,10 @@ const j = class m extends $ {
     return this.children.forEachAt(
       e,
       s,
-      (o, a, n) => {
+      (o, n, h) => {
         (t.blotName == null && t(o) || t.blotName != null && o instanceof t) && i.push(o), o instanceof m && (i = i.concat(
-          o.descendants(t, a, r)
-        )), r -= n;
+          o.descendants(t, n, r)
+        )), r -= h;
       }
     ), i;
   }
@@ -669,12 +647,12 @@ const j = class m extends $ {
     this.children.forEach((e) => {
       t || this.statics.allowedChildren.some(
         (s) => e instanceof s
-      ) || (e.statics.scope === h.BLOCK_BLOT ? (e.next != null && this.splitAfter(e), e.prev != null && this.splitAfter(e.prev), e.parent.unwrap(), t = !0) : e instanceof m ? e.unwrap() : e.remove());
+      ) || (e.statics.scope === a.BLOCK_BLOT ? (e.next != null && this.splitAfter(e), e.prev != null && this.splitAfter(e.prev), e.parent.unwrap(), t = !0) : e instanceof m ? e.unwrap() : e.remove());
     });
   }
   formatAt(t, e, s, i) {
-    this.children.forEachAt(t, e, (r, o, a) => {
-      r.formatAt(o, a, s, i);
+    this.children.forEachAt(t, e, (r, o, n) => {
+      r.formatAt(o, n, s, i);
     });
   }
   insertAt(t, e, s) {
@@ -727,8 +705,8 @@ const j = class m extends $ {
     }
     const s = this.clone();
     return this.parent && this.parent.insertBefore(s, this.next || void 0), this.children.forEachAt(t, this.length(), (i, r, o) => {
-      const a = i.split(r, e);
-      a != null && s.appendChild(a);
+      const n = i.split(r, e);
+      n != null && s.appendChild(n);
     }), s;
   }
   splitAfter(t) {
@@ -753,15 +731,15 @@ const j = class m extends $ {
     }), s.filter((r) => r.parentNode === this.domNode && r !== this.uiNode).sort((r, o) => r === o ? 0 : r.compareDocumentPosition(o) & Node.DOCUMENT_POSITION_FOLLOWING ? 1 : -1).forEach((r) => {
       let o = null;
       r.nextSibling != null && (o = this.scroll.find(r.nextSibling));
-      const a = I(r, this.scroll);
-      (a.next !== o || a.next == null) && (a.parent != null && a.parent.removeChild(this), this.insertBefore(a, o || void 0));
+      const n = I(r, this.scroll);
+      (n.next !== o || n.next == null) && (n.parent != null && n.parent.removeChild(this), this.insertBefore(n, o || void 0));
     }), this.enforceAllowedChildren();
   }
 };
-j.uiClass = "";
-let ot = j;
-const x = ot;
-function lt(l, t) {
+W.uiClass = "";
+let rt = W;
+const b = rt;
+function ot(l, t) {
   if (Object.keys(l).length !== Object.keys(t).length)
     return !1;
   for (const e in l)
@@ -769,12 +747,12 @@ function lt(l, t) {
       return !1;
   return !0;
 }
-const g = class y extends x {
+const f = class g extends b {
   static create(t) {
     return super.create(t);
   }
   static formats(t, e) {
-    const s = e.query(y.blotName);
+    const s = e.query(g.blotName);
     if (!(s != null && t.tagName === s.tagName)) {
       if (typeof this.tagName == "string")
         return !0;
@@ -783,18 +761,18 @@ const g = class y extends x {
     }
   }
   constructor(t, e) {
-    super(t, e), this.attributes = new D(this.domNode);
+    super(t, e), this.attributes = new q(this.domNode);
   }
   format(t, e) {
     if (t === this.statics.blotName && !e)
       this.children.forEach((s) => {
-        s instanceof y || (s = s.wrap(y.blotName, !0)), this.attributes.copy(s);
+        s instanceof g || (s = s.wrap(g.blotName, !0)), this.attributes.copy(s);
       }), this.unwrap();
     else {
-      const s = this.scroll.query(t, h.INLINE);
+      const s = this.scroll.query(t, a.INLINE);
       if (s == null)
         return;
-      s instanceof A ? this.attributes.attribute(s, e) : e && (t !== this.statics.blotName || this.formats()[t] !== e) && this.replaceWith(t, e);
+      s instanceof x ? this.attributes.attribute(s, e) : e && (t !== this.statics.blotName || this.formats()[t] !== e) && this.replaceWith(t, e);
     }
   }
   formats() {
@@ -802,7 +780,7 @@ const g = class y extends x {
     return e != null && (t[this.statics.blotName] = e), t;
   }
   formatAt(t, e, s, i) {
-    this.formats()[s] != null || this.scroll.query(s, h.ATTRIBUTE) ? this.isolate(t, e).format(s, i) : super.formatAt(t, e, s, i);
+    this.formats()[s] != null || this.scroll.query(s, a.ATTRIBUTE) ? this.isolate(t, e).format(s, i) : super.formatAt(t, e, s, i);
   }
   optimize(t) {
     super.optimize(t);
@@ -810,7 +788,7 @@ const g = class y extends x {
     if (Object.keys(e).length === 0)
       return this.unwrap();
     const s = this.next;
-    s instanceof y && s.prev === this && lt(e, s.formats()) && (s.moveChildren(this), s.remove());
+    s instanceof g && s.prev === this && ot(e, s.formats()) && (s.moveChildren(this), s.remove());
   }
   replaceWith(t, e) {
     const s = super.replaceWith(t, e);
@@ -823,12 +801,12 @@ const g = class y extends x {
   }
   wrap(t, e) {
     const s = super.wrap(t, e);
-    return s instanceof y && this.attributes.move(s), s;
+    return s instanceof g && this.attributes.move(s), s;
   }
 };
-g.allowedChildren = [g, E], g.blotName = "inline", g.scope = h.INLINE_BLOT, g.tagName = "SPAN";
-let at = g;
-const nt = at, N = class S extends x {
+f.allowedChildren = [f, E], f.blotName = "inline", f.scope = a.INLINE_BLOT, f.tagName = "SPAN";
+let lt = f;
+const at = lt, y = class S extends b {
   static create(t) {
     return super.create(t);
   }
@@ -842,21 +820,21 @@ const nt = at, N = class S extends x {
     }
   }
   constructor(t, e) {
-    super(t, e), this.attributes = new D(this.domNode);
+    super(t, e), this.attributes = new q(this.domNode);
   }
   format(t, e) {
-    const s = this.scroll.query(t, h.BLOCK);
-    s != null && (s instanceof A ? this.attributes.attribute(s, e) : t === this.statics.blotName && !e ? this.replaceWith(S.blotName) : e && (t !== this.statics.blotName || this.formats()[t] !== e) && this.replaceWith(t, e));
+    const s = this.scroll.query(t, a.BLOCK);
+    s != null && (s instanceof x ? this.attributes.attribute(s, e) : t === this.statics.blotName && !e ? this.replaceWith(S.blotName) : e && (t !== this.statics.blotName || this.formats()[t] !== e) && this.replaceWith(t, e));
   }
   formats() {
     const t = this.attributes.values(), e = this.statics.formats(this.domNode, this.scroll);
     return e != null && (t[this.statics.blotName] = e), t;
   }
   formatAt(t, e, s, i) {
-    this.scroll.query(s, h.BLOCK) != null ? this.format(s, i) : super.formatAt(t, e, s, i);
+    this.scroll.query(s, a.BLOCK) != null ? this.format(s, i) : super.formatAt(t, e, s, i);
   }
   insertAt(t, e, s) {
-    if (s == null || this.scroll.query(e, h.INLINE) != null)
+    if (s == null || this.scroll.query(e, a.INLINE) != null)
       super.insertAt(t, e, s);
     else {
       const i = this.split(t);
@@ -877,13 +855,13 @@ const nt = at, N = class S extends x {
     ) && this.attributes.build();
   }
 };
-N.blotName = "block", N.scope = h.BLOCK_BLOT, N.tagName = "P", N.allowedChildren = [
-  nt,
-  N,
+y.blotName = "block", y.scope = a.BLOCK_BLOT, y.tagName = "P", y.allowedChildren = [
+  at,
+  y,
   E
 ];
-let ht = N;
-const M = ht, O = class extends x {
+let nt = y;
+const M = nt, O = class extends b {
   checkMerge() {
     return this.next !== null && this.next.statics.blotName === this.statics.blotName;
   }
@@ -900,10 +878,10 @@ const M = ht, O = class extends x {
     super.optimize(t), this.children.length > 0 && this.next != null && this.checkMerge() && (this.next.moveChildren(this), this.next.remove());
   }
 };
-O.blotName = "container", O.scope = h.BLOCK_BLOT;
-let ct = O;
-const dt = ct;
-class ut extends E {
+O.blotName = "container", O.scope = a.BLOCK_BLOT;
+let ht = O;
+const ct = ht;
+class dt extends E {
   static formats(t, e) {
   }
   format(t, e) {
@@ -916,17 +894,17 @@ class ut extends E {
     return this.statics.formats(this.domNode, this.scroll);
   }
 }
-const mt = ut, pt = {
+const ut = dt, mt = {
   attributes: !0,
   characterData: !0,
   characterDataOldValue: !0,
   childList: !0,
   subtree: !0
-}, ft = 100, v = class extends x {
+}, pt = 100, A = class extends b {
   constructor(t, e) {
     super(null, e), this.registry = t, this.scroll = this, this.build(), this.observer = new MutationObserver((s) => {
       this.update(s);
-    }), this.observer.observe(this.domNode, pt), this.attach();
+    }), this.observer.observe(this.domNode, mt), this.attach();
   }
   create(t, e) {
     return this.registry.create(this, t, e);
@@ -935,7 +913,7 @@ const mt = ut, pt = {
     const s = this.registry.find(t, e);
     return s ? s.scroll === this ? s : e ? this.find(s.scroll.domNode.parentNode, !0) : null : null;
   }
-  query(t, e = h.ANY) {
+  query(t, e = a.ANY) {
     return this.registry.query(t, e);
   }
   register(...t) {
@@ -964,24 +942,24 @@ const mt = ut, pt = {
     let i = Array.from(this.observer.takeRecords());
     for (; i.length > 0; )
       t.push(i.pop());
-    const r = (n, c = !0) => {
-      n == null || n === this || n.domNode.parentNode != null && (s.has(n.domNode) || s.set(n.domNode, []), c && r(n.parent));
-    }, o = (n) => {
-      s.has(n.domNode) && (n instanceof x && n.children.forEach(o), s.delete(n.domNode), n.optimize(e));
+    const r = (h, u = !0) => {
+      h == null || h === this || h.domNode.parentNode != null && (s.has(h.domNode) || s.set(h.domNode, []), u && r(h.parent));
+    }, o = (h) => {
+      s.has(h.domNode) && (h instanceof b && h.children.forEach(o), s.delete(h.domNode), h.optimize(e));
     };
-    let a = t;
-    for (let n = 0; a.length > 0; n += 1) {
-      if (n >= ft)
+    let n = t;
+    for (let h = 0; n.length > 0; h += 1) {
+      if (h >= pt)
         throw new Error("[Parchment] Maximum optimize iterations reached");
-      for (a.forEach((c) => {
-        const f = this.find(c.target, !0);
-        f != null && (f.domNode === c.target && (c.type === "childList" ? (r(this.find(c.previousSibling, !1)), Array.from(c.addedNodes).forEach((K) => {
-          const B = this.find(K, !1);
-          r(B, !1), B instanceof x && B.children.forEach((F) => {
-            r(F, !1);
+      for (n.forEach((u) => {
+        const v = this.find(u.target, !0);
+        v != null && (v.domNode === u.target && (u.type === "childList" ? (r(this.find(u.previousSibling, !1)), Array.from(u.addedNodes).forEach((P) => {
+          const B = this.find(P, !1);
+          r(B, !1), B instanceof b && B.children.forEach((K) => {
+            r(K, !1);
           });
-        })) : c.type === "attributes" && r(f.prev)), r(f));
-      }), this.children.forEach(o), a = Array.from(this.observer.takeRecords()), i = a.slice(); i.length > 0; )
+        })) : u.type === "attributes" && r(v.prev)), r(v));
+      }), this.children.forEach(o), n = Array.from(this.observer.takeRecords()), i = n.slice(); i.length > 0; )
         t.push(i.pop());
     }
   }
@@ -996,8 +974,8 @@ const mt = ut, pt = {
     }), e.mutationsMap = s, s.has(this.domNode) && super.update(s.get(this.domNode), e), this.optimize(t, e);
   }
 };
-v.blotName = "scroll", v.defaultChild = M, v.allowedChildren = [M, dt], v.scope = h.BLOCK_BLOT, v.tagName = "DIV";
-const U = class P extends E {
+A.blotName = "scroll", A.defaultChild = M, A.allowedChildren = [M, ct], A.scope = a.BLOCK_BLOT, A.tagName = "DIV";
+const U = class _ extends E {
   static create(t) {
     return document.createTextNode(t);
   }
@@ -1020,7 +998,7 @@ const U = class P extends E {
     return this.text.length;
   }
   optimize(t) {
-    super.optimize(t), this.text = this.statics.value(this.domNode), this.text.length === 0 ? this.remove() : this.next instanceof P && this.next.prev === this && (this.insertAt(this.length(), this.next.value()), this.next.remove());
+    super.optimize(t), this.text = this.statics.value(this.domNode), this.text.length === 0 ? this.remove() : this.next instanceof _ && this.next.prev === this && (this.insertAt(this.length(), this.next.value()), this.next.remove());
   }
   position(t, e = !1) {
     return [this.domNode, t];
@@ -1042,8 +1020,8 @@ const U = class P extends E {
     return this.text;
   }
 };
-U.blotName = "text", U.scope = h.INLINE_BLOT;
-class _ extends mt {
+U.blotName = "text", U.scope = a.INLINE_BLOT;
+class j extends ut {
   static value() {
   }
   optimize() {
@@ -1056,15 +1034,15 @@ class _ extends mt {
     return "";
   }
 }
-_.blotName = "break";
-_.tagName = "BR";
-function gt(l, t) {
+j.blotName = "break";
+j.tagName = "BR";
+function ft(l, t) {
   const e = document.createElement("a");
   e.href = l;
   const s = e.href.slice(0, e.href.indexOf(":"));
   return t.indexOf(s) > -1;
 }
-const yt = ["alt", "height", "width", "style"], Nt = (l) => {
+const gt = ["alt", "height", "width", "style"], yt = (l) => {
   var e;
   const t = l.import("blots/block/embed");
   return e = class extends t {
@@ -1082,7 +1060,7 @@ const yt = ["alt", "height", "width", "style"], Nt = (l) => {
       return /\.(jpe?g|gif|png)$/.test(i) || /^data:image\/.+;base64/.test(i);
     }
     static sanitize(i) {
-      return gt(i, ["http", "https", "data"]) ? i : "//:0";
+      return ft(i, ["http", "https", "data"]) ? i : "//:0";
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     static value(i) {
@@ -1101,28 +1079,26 @@ const yt = ["alt", "height", "width", "style"], Nt = (l) => {
       } else
         super.format(i, r);
     }
-  }, e.blotName = "image", e.tagName = "IMG", e.internalName = "ResizorImageFormat", e.allowedFormatAttributesList = yt, e;
-}, bt = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msUserSelect"]), xt = { DisplaySize: Q, Toolbar: H, Resize: G }, u = class u {
+  }, e.blotName = "image", e.tagName = "IMG", e.internalName = "ResizorImageFormat", e.allowedFormatAttributesList = gt, e;
+}, Nt = Object.freeze(["userSelect", "mozUserSelect", "webkitUserSelect", "msUserSelect"]), bt = { DisplaySize: F, Toolbar: V, Resize: H }, d = class d {
   constructor(t, e = {}) {
-    var i, r, o;
     if (this.moduleClasses = [], this.modules = [], this.onUpdate = () => {
-      this.repositionElements(), this.modules.forEach((a) => {
-        a.onUpdate();
+      this.repositionElements(), this.modules.forEach((i) => {
+        i.onUpdate();
       });
     }, this.removeModules = () => {
-      this.modules.forEach((a) => {
-        a.onDestroy();
+      this.modules.forEach((i) => {
+        i.onDestroy();
       }), this.modules = [];
-    }, this.handleClick = (a) => {
-      var c;
-      const n = a.target;
-      if (((c = n == null ? void 0 : n.tagName) == null ? void 0 : c.toUpperCase()) === "IMG") {
-        if (this.img === n)
+    }, this.handleClick = (i) => {
+      const r = i.target;
+      if (r?.tagName?.toUpperCase() === "IMG") {
+        if (this.img === r)
           return;
-        this.img && this.hide(), this.show(n);
+        this.img && this.hide(), this.show(r);
       } else this.img && this.hide();
-    }, this.show = (a) => {
-      this.img = a, this.showOverlay(), this.initializeModules();
+    }, this.show = (i) => {
+      this.img = i, this.showOverlay(), this.initializeModules();
     }, this.showOverlay = () => {
       this.overlay && this.hideOverlay(), this.quill.setSelection(null), this.setUserSelect("none"), document.addEventListener("keyup", this.checkImageKeyUp, !0), this.quill.root.addEventListener("input", this.checkImageInput, !0), window.addEventListener("resize", this.repositionElements), this.overlay = document.createElement("div"), this.overlay.classList.add("ql-image-resizor"), Object.assign(this.overlay.style, this.options.overlayStyles), this.quill.root.parentNode.appendChild(this.overlay), this.repositionElements();
     }, this.hideOverlay = () => {
@@ -1130,66 +1106,62 @@ const yt = ["alt", "height", "width", "style"], Nt = (l) => {
     }, this.repositionElements = () => {
       if (!this.overlay || !this.img)
         return;
-      const a = this.quill.root.parentNode, n = this.img.getBoundingClientRect(), c = a.getBoundingClientRect();
+      const i = this.quill.root.parentNode, r = this.img.getBoundingClientRect(), o = i.getBoundingClientRect();
       Object.assign(this.overlay.style, {
-        left: `${n.left - c.left - 1 + a.scrollLeft}px`,
-        top: `${n.top - c.top + a.scrollTop}px`,
-        width: `${n.width}px`,
-        height: `${n.height}px`
+        left: `${r.left - o.left - 1 + i.scrollLeft}px`,
+        top: `${r.top - o.top + i.scrollTop}px`,
+        width: `${r.width}px`,
+        height: `${r.height}px`
       });
     }, this.hide = () => {
       this.hideOverlay(), this.removeModules(), this.img = void 0;
-    }, this.setUserSelect = (a) => {
-      bt.forEach((n) => {
-        this.quill.root.style[n] = a, document.documentElement.style[n] = a;
+    }, this.setUserSelect = (i) => {
+      Nt.forEach((r) => {
+        this.quill.root.style[r] = i, document.documentElement.style[r] = i;
       });
-    }, this.checkImageKeyUp = (a) => {
-      var n;
+    }, this.checkImageKeyUp = (i) => {
       if (this.img) {
-        if (["Backspace", "Delete"].includes(a.code)) {
-          const c = (n = u.Quill) == null ? void 0 : n.find(this.img);
-          c && c.deleteAt(0);
+        if (["Backspace", "Delete"].includes(i.code)) {
+          const r = d.Quill?.find(this.img);
+          r && r.deleteAt(0);
         }
         this.hide();
       }
-    }, this.checkImageInput = (a) => {
-      var n;
+    }, this.checkImageInput = (i) => {
       if (this.img) {
-        if (["deleteContentForward", "deleteContentBackward"].includes(a.inputType)) {
-          const c = (n = u.Quill) == null ? void 0 : n.find(this.img);
-          c && c.deleteAt(0);
+        if (["deleteContentForward", "deleteContentBackward"].includes(i.inputType)) {
+          const r = d.Quill?.find(this.img);
+          r && r.deleteAt(0);
         }
         this.hide();
       }
-    }, !u.Quill)
+    }, !d.Quill)
       throw "ImageResizor.Quill not set.";
-    if (this.initializeModules = this.initializeModules.bind(this), ((i = u.Quill.import("formats/image")) == null ? void 0 : i.internalName) !== "ResizorImageFormat" && u.Quill.register("formats/image", Nt(u.Quill)), !u.floatStyle || !u.displayStyle || !u.marginStyle) {
-      const a = u.Quill.imports.parchment;
-      u.floatStyle = new a.StyleAttributor("float", "float"), u.displayStyle = new a.StyleAttributor("display", "display"), u.marginStyle = new a.StyleAttributor("margin", "margin");
+    if (this.initializeModules = this.initializeModules.bind(this), d.Quill.import("formats/image")?.internalName !== "ResizorImageFormat" && d.Quill.register("formats/image", yt(d.Quill)), !d.floatStyle || !d.displayStyle || !d.marginStyle) {
+      const i = d.Quill.imports.parchment;
+      d.floatStyle = new i.StyleAttributor("float", "float"), d.displayStyle = new i.StyleAttributor("display", "display"), d.marginStyle = new i.StyleAttributor("margin", "margin");
     }
     this.quill = t, this.options = {
-      modules: (r = e.modules) != null && r.length ? e.modules : p.modules,
+      modules: e.modules?.length ? e.modules : p.modules,
       displayStyles: { ...p.displayStyles, ...e.displayStyles },
       handleStyles: { ...p.handleStyles, ...e.handleStyles },
       overlayStyles: { ...p.overlayStyles, ...e.overlayStyles },
       toolbarButtonStyles: { ...p.toolbarButtonStyles, ...e.toolbarButtonStyles },
       toolbarButtonSvgStyles: { ...p.toolbarButtonSvgStyles, ...e.toolbarButtonSvgStyles },
       toolbarStyles: { ...p.toolbarStyles, ...e.toolbarStyles }
-    }, (o = e.modules) != null && o.length && (this.moduleClasses = e.modules.slice()), this.quill.root.addEventListener("click", this.handleClick, !1);
+    }, e.modules?.length && (this.moduleClasses = e.modules.slice()), this.quill.root.addEventListener("click", this.handleClick, !1);
     const s = this.quill.root.parentNode;
     s.style.position = s.style.position || "relative", this.modules = [], this.moduleClasses = this.options.modules || [];
   }
   initializeModules() {
-    var t;
-    this.removeModules(), this.modules = ((t = this.moduleClasses) == null ? void 0 : t.map((e) => new (xt[e] || e)(this))) || [], this.modules.forEach((e) => {
-      e.onCreate();
+    this.removeModules(), this.modules = this.moduleClasses?.map((t) => new (bt[t] || t)(this)) || [], this.modules.forEach((t) => {
+      t.onCreate();
     }), this.onUpdate();
   }
 };
-u.floatStyle = null, u.marginStyle = null, u.displayStyle = null, u.Quill = window.Quill ?? null;
-let d = u;
-var z;
-(z = window.Quill) == null || z.register("modules/imageResizor", d);
+d.floatStyle = null, d.marginStyle = null, d.displayStyle = null, d.Quill = window.Quill ?? null;
+let c = d;
+window.Quill?.register("modules/imageResizor", c);
 export {
-  d as default
+  c as default
 };

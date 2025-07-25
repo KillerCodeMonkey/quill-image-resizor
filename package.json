@@ -1,6 +1,6 @@
 {
   "name": "quill-image-resizor",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "A module for Quill rich text editor to allow images to be resized.",
   "type": "module",
   "source": "src/ImageResizor.js",
@@ -69,6 +69,6 @@
     "quill": "^2.0.0"
   },
   "volta": {
-    "node": "22.15.1"
+    "node": "22.17.1"
   }
 }

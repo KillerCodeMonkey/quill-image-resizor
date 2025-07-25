@@ -29,7 +29,6 @@ export const createResizeImageFormat = (Quill: any) => {
           }
         })
       }
-      console.log(node)
       return node
     }
 
@@ -69,7 +68,6 @@ export const createResizeImageFormat = (Quill: any) => {
     }
 
     format(name: string, value: string): void {
-      console.log('format', name, value)
       if (ResizorImageFormat.allowedFormatAttributesList.indexOf(name) > -1) {
         const domNode = this.domNode as HTMLImageElement
         if (value) {

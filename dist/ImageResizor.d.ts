@@ -1,4 +1,4 @@
-import { default as Quill } from 'quill';
+import { default as Quill, Parchment } from 'quill';
 import { ImageResizorOptions } from './DefaultOptions';
 /**
  * Custom module for quilljs to allow user to resize <img> elements
@@ -16,6 +16,9 @@ export default class ImageResizor {
         onUpdate: () => void;
         onDestroy: () => void;
     }[];
+    static floatStyle: Parchment.StyleAttributor | null;
+    static marginStyle: Parchment.StyleAttributor | null;
+    static displayStyle: Parchment.StyleAttributor | null;
     static Quill: any;
     constructor(quill: Quill, options?: ImageResizorOptions);
     initializeModules(): void;

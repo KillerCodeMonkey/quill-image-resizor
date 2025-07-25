@@ -4,23 +4,11 @@
     <meta charset="utf-8" />
     <title>Quill Image Resizor Module Demo</title>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.min.js"
-      integrity="sha512-1nmY9t9/Iq3JU1fGf0OpNCn6uXMmwC1XYX9a6547vnfcjCY1KvU9TE5e8jHQvXBoEH7hcKLIbbOjneZ8HCeNLA=="
+      src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.min.css"
-      integrity="sha512-UmV2ARg2MsY8TysMjhJvXSQHYgiYSVPS5ULXZCsTP3RgiMmBJhf8qP93vEyJgYuGt3u9V6wem73b11/Y8GVcOg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer" />
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.bubble.min.css"
-      integrity="sha512-/7xGl11n/6f/vbRmITKPWT3I0xFG9hExxOoBjabIQDyXi9lGai/OM8QYUBZp/asaRfIw3Ie/i61i50HjDRXnGg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.bubble.css" rel="stylesheet" />
     <script type="module" src="./dist/ImageResizor.js"></script>
   </head>
 
@@ -30,12 +18,14 @@
       <p>Click on the Image Below to resize</p>
       <p>
         <img
-          src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png" />
+          src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png"
+          style="display: block; margin: auto" />
       </p>
       <p>Some initial <strong>bold</strong> text</p>
       <p>
         <img
-          src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png" />
+          src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png"
+          style="display: inline; float: right; margin: 0px 0em 1em 1em" />
       </p>
     </div>
 
@@ -43,11 +33,13 @@
       <p>Click on the Image Below to resize</p>
       <p>
         <img
+          style="display: inline; float: left; margin: 0px 1em 1em 0em"
           src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png" />
       </p>
       <p>Some initial <strong>bold</strong> text</p>
       <p>
         <img
+          style="display: block; margin: auto"
           src="https://cloud.githubusercontent.com/assets/2264672/20601381/a51753d4-b258-11e6-92c2-1d79efa5bede.png" />
       </p>
     </div>

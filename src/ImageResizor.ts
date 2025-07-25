@@ -4,6 +4,8 @@ import { Toolbar } from './modules/Toolbar'
 import { Resize } from './modules/Resize'
 import type Quill from 'quill'
 import type { ImageResizorOptions } from './DefaultOptions'
+import type { Parchment } from 'quill'
+import { createResizeImageFormat } from './formats/Image'
 
 const userSelects = Object.freeze(['userSelect', 'mozUserSelect', 'webkitUserSelect', 'msUserSelect'])
 
@@ -26,10 +28,29 @@ export default class ImageResizor {
     onDestroy: () => void
   }[] = []
 
+  static floatStyle: Parchment.StyleAttributor | null = null
+  static marginStyle: Parchment.StyleAttributor | null = null
+  static displayStyle: Parchment.StyleAttributor | null = null
+
   static Quill = window['Quill'] ?? null
 
   constructor(quill: Quill, options: ImageResizorOptions = {}) {
+    if (!ImageResizor.Quill) {
+      throw `ImageResizor.Quill not set.`
+    }
+
     this.initializeModules = this.initializeModules.bind(this)
+    // register image format
+    if (ImageResizor.Quill.import('formats/image')?.internalName !== 'ResizorImageFormat') {
+      ImageResizor.Quill.register('formats/image', createResizeImageFormat(ImageResizor.Quill))
+    }
+    // register custom styles
+    if (!ImageResizor.floatStyle || !ImageResizor.displayStyle || !ImageResizor.marginStyle) {
+      const Parchment = ImageResizor.Quill.imports.parchment
+      ImageResizor.floatStyle = new Parchment.StyleAttributor('float', 'float')
+      ImageResizor.displayStyle = new Parchment.StyleAttributor('display', 'display')
+      ImageResizor.marginStyle = new Parchment.StyleAttributor('margin', 'margin')
+    }
     // save the quill reference and options
     this.quill = quill
 
@@ -210,4 +231,5 @@ export default class ImageResizor {
   }
 }
 
+// Register module
 window['Quill']?.register('modules/imageResizor', ImageResizor)

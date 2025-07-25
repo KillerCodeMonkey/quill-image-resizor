@@ -3,12 +3,8 @@ import IconAlignCenter from 'quill/assets/icons/align-center.svg?raw'
 import IconAlignRight from 'quill/assets/icons/align-right.svg?raw'
 import { BaseModule } from './BaseModule'
 import ImageResizor from '../ImageResizor'
-import type { Parchment } from 'quill'
 
 export class Toolbar extends BaseModule {
-  floatStyle: Parchment.StyleAttributor | null = null
-  marginStyle: Parchment.StyleAttributor | null = null
-  displayStyle: Parchment.StyleAttributor | null = null
   toolbar?: HTMLDivElement
   alignments: {
     icon: string
@@ -18,12 +14,6 @@ export class Toolbar extends BaseModule {
 
   constructor(resizer: ImageResizor) {
     super(resizer)
-    if (ImageResizor.Quill) {
-      const parchment = ImageResizor.Quill.imports.parchment
-      this.floatStyle = new parchment.StyleAttributor('float', 'float')
-      this.marginStyle = new parchment.StyleAttributor('margin', 'margin')
-      this.displayStyle = new parchment.StyleAttributor('display', 'display')
-    }
   }
 
   onCreate = () => {
@@ -43,7 +33,7 @@ export class Toolbar extends BaseModule {
   // Nothing to update on drag because we are are positioned relative to the overlay
   onUpdate = () => {}
 
-  _stylesSet = () => this.displayStyle && this.floatStyle && this.marginStyle
+  _stylesSet = () => ImageResizor.displayStyle && ImageResizor.floatStyle && ImageResizor.marginStyle
 
   _defineAlignments = () => {
     this.alignments = [
@@ -53,15 +43,15 @@ export class Toolbar extends BaseModule {
           if (!this.img) {
             return
           }
-          this.displayStyle?.add(this.img, 'inline')
-          this.floatStyle?.add(this.img, 'left')
-          this.marginStyle?.add(this.img, '0 1em 1em 0')
+          ImageResizor.displayStyle?.add(this.img, 'inline')
+          ImageResizor.floatStyle?.add(this.img, 'left')
+          ImageResizor.marginStyle?.add(this.img, '0 1em 1em 0')
         },
         isApplied: () => {
           if (!this.img) {
             return false
           }
-          return this.floatStyle?.value(this.img) === 'left'
+          return ImageResizor.floatStyle?.value(this.img) === 'left'
         }
       },
       {
@@ -70,15 +60,15 @@ export class Toolbar extends BaseModule {
           if (!this.img) {
             return
           }
-          this.displayStyle?.add(this.img, 'block')
-          this.floatStyle?.remove(this.img)
-          this.marginStyle?.add(this.img, 'auto')
+          ImageResizor.floatStyle?.remove(this.img)
+          ImageResizor.displayStyle?.add(this.img, 'block')
+          ImageResizor.marginStyle?.add(this.img, 'auto')
         },
         isApplied: () => {
           if (!this.img) {
             return false
           }
-          return this.marginStyle?.value(this.img) === 'auto'
+          return ImageResizor.marginStyle?.value(this.img) === 'auto'
         }
       },
       {
@@ -87,15 +77,15 @@ export class Toolbar extends BaseModule {
           if (!this.img) {
             return false
           }
-          this.displayStyle?.add(this.img, 'inline')
-          this.floatStyle?.add(this.img, 'right')
-          this.marginStyle?.add(this.img, '0 0 1em 1em')
+          ImageResizor.displayStyle?.add(this.img, 'inline')
+          ImageResizor.floatStyle?.add(this.img, 'right')
+          ImageResizor.marginStyle?.add(this.img, '0 0em 1em 1em')
         },
         isApplied: () => {
           if (!this.img) {
             return false
           }
-          return this.floatStyle?.value(this.img) === 'right'
+          return ImageResizor.floatStyle?.value(this.img) === 'right'
         }
       }
     ]
@@ -113,9 +103,9 @@ export class Toolbar extends BaseModule {
         if (alignment.isApplied()) {
           // If applied, unapply
           if (this.img) {
-            this.floatStyle?.remove(this.img)
-            this.marginStyle?.remove(this.img)
-            this.displayStyle?.remove(this.img)
+            ImageResizor.floatStyle?.remove(this.img)
+            ImageResizor.marginStyle?.remove(this.img)
+            ImageResizor.displayStyle?.remove(this.img)
           }
         } else {
           // otherwise, select button and apply

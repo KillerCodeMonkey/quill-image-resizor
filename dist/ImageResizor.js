@@ -1051,7 +1051,7 @@ const gt = ["alt", "height", "width", "style"], yt = (l) => {
       const r = super.create(i);
       return typeof i == "string" ? r.setAttribute("src", i) : typeof i == "object" && i !== null && (i.src && r.setAttribute("src", i.src), this.allowedFormatAttributesList.forEach((o) => {
         i[o] && r.setAttribute(o, i[o] ?? "");
-      })), console.log(r), r;
+      })), r;
     }
     static formats(i) {
       return this.allowedFormatAttributesList.reduce((r, o) => (i.hasAttribute(o) && (r[o] = i.getAttribute(o) || ""), r), {});
@@ -1073,7 +1073,7 @@ const gt = ["alt", "height", "width", "style"], yt = (l) => {
       } : r;
     }
     format(i, r) {
-      if (console.log("format", i, r), e.allowedFormatAttributesList.indexOf(i) > -1) {
+      if (e.allowedFormatAttributesList.indexOf(i) > -1) {
         const o = this.domNode;
         r ? o.setAttribute(i, r) : o.removeAttribute(i);
       } else
